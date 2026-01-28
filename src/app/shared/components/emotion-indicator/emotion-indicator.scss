@@ -1,0 +1,36 @@
+@import '../../../../styles/variables';
+
+.emotion-indicator {
+    transition: all $transition-base;
+    border-left: 4px solid transparent !important;
+
+    &:hover {
+        transform: translateY(-2px);
+        box-shadow: $shadow-lg !important;
+    }
+
+    .emotion-icon {
+        transition: transform $transition-base;
+
+        i {
+            animation: pulse 2s ease-in-out infinite;
+        }
+    }
+
+    .emotion-label {
+        color: $neutral-800;
+        font-size: 0.9rem;
+    }
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.1);
+    }
+}

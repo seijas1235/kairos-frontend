@@ -1,0 +1,19 @@
+@import '../../../../styles/variables';
+
+.footer {
+    a {
+        transition: color $transition-fast;
+
+        &:hover {
+            color: $primary-color !important;
+        }
+    }
+
+    .bi {
+        transition: transform $transition-fast;
+
+        &:hover {
+            transform: scale(1.2);
+        }
+    }
+}

@@ -1,0 +1,14 @@
+<div class="emotion-indicator card shadow-sm border-0" [class]="'border-' + getEmotionColor(emotion)">
+    <div class="card-body text-center">
+        <div class="emotion-icon mb-2" [class]="'text-' + getEmotionColor(emotion)">
+            <i [class]="'bi ' + getEmotionIcon(emotion) + ' fs-1'"></i>
+        </div>
+        <h6 class="emotion-label fw-bold mb-1">{{ getEmotionLabel(emotion) }}</h6>
+        <div class="progress" style="height: 6px;">
+            <div class="progress-bar" [class]="'bg-' + getEmotionColor(emotion)" [style.width.%]="confidence * 100"
+                role="progressbar" [attr.aria-valuenow]="confidence * 100" aria-valuemin="0" aria-valuemax="100">
+            </div>
+        </div>
+        <small class="text-muted">{{ (confidence * 100).toFixed(0) }}% confidence</small>
+    </div>
+</div>

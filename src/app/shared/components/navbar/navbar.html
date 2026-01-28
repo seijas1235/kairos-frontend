@@ -1,0 +1,42 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-gradient sticky-top shadow-sm">
+  <div class="container">
+    <a class="navbar-brand d-flex align-items-center" routerLink="/">
+      <i class="bi bi-mortarboard-fill me-2 fs-4"></i>
+      <span class="fw-bold">KAIROS</span>
+    </a>
+    
+    <button 
+      class="navbar-toggler" 
+      type="button" 
+      (click)="toggleMenu()"
+      [attr.aria-expanded]="isMenuOpen"
+      aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    
+    <div class="collapse navbar-collapse" [class.show]="isMenuOpen" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="closeMenu()">
+            <i class="bi bi-house-fill me-1"></i> Home
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/lessons" routerLinkActive="active" (click)="closeMenu()">
+            <i class="bi bi-book-fill me-1"></i> Lessons
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/dashboard" routerLinkActive="active" (click)="closeMenu()">
+            <i class="bi bi-speedometer2 me-1"></i> Dashboard
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="btn btn-primary ms-lg-2 mt-2 mt-lg-0" routerLink="/lessons" (click)="closeMenu()">
+            <i class="bi bi-play-circle-fill me-1"></i> Start Learning
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

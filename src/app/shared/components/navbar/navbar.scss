@@ -1,0 +1,66 @@
+@import '../../../../styles/variables';
+
+.navbar {
+    background: linear-gradient(135deg, $primary-color, $secondary-color) !important;
+    backdrop-filter: blur(10px);
+    transition: all $transition-base;
+
+    .navbar-brand {
+        font-size: 1.5rem;
+        transition: transform $transition-fast;
+
+        &:hover {
+            transform: scale(1.05);
+        }
+
+        i {
+            color: white;
+        }
+    }
+
+    .nav-link {
+        color: rgba(255, 255, 255, 0.9) !important;
+        font-weight: 500;
+        padding: 0.5rem 1rem;
+        border-radius: $radius-md;
+        transition: all $transition-fast;
+
+        &:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: white !important;
+        }
+
+        &.active {
+            background: rgba(255, 255, 255, 0.2);
+            color: white !important;
+        }
+
+        i {
+            opacity: 0.8;
+        }
+    }
+
+    .btn-primary {
+        background: white;
+        color: $primary-color;
+        border: none;
+        font-weight: 600;
+        padding: 0.5rem 1.5rem;
+        transition: all $transition-base;
+
+        &:hover {
+            transform: translateY(-2px);
+            box-shadow: $shadow-lg;
+            background: rgba(255, 255, 255, 0.95);
+        }
+    }
+}
+
+@media (max-width: 991px) {
+    .navbar-collapse {
+        background: rgba(0, 0, 0, 0.1);
+        border-radius: $radius-md;
+        padding: 1rem;
+        margin-top: 1rem;
+    }
+}
