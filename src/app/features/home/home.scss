@@ -1,0 +1,71 @@
+@import '../../../styles/variables';
+
+.home-page {
+    .hero-section {
+        background: linear-gradient(135deg, $primary-color, $secondary-color);
+        min-height: 600px;
+        display: flex;
+        align-items: center;
+
+        .hero-image-placeholder {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: $radius-lg;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+    }
+
+    .features-section {
+        .feature-icon {
+            transition: transform $transition-base;
+        }
+
+        .card:hover .feature-icon {
+            transform: scale(1.2) rotate(5deg);
+        }
+    }
+
+    .how-it-works-section {
+        .step-card {
+            .step-number {
+                width: 60px;
+                height: 60px;
+                background: linear-gradient(135deg, $primary-color, $secondary-color);
+                color: white;
+                border-radius: 50%;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 1.5rem;
+                font-weight: bold;
+            }
+
+            .step-icon {
+                transition: transform $transition-base;
+            }
+
+            &:hover .step-icon {
+                transform: translateY(-5px);
+            }
+        }
+    }
+
+    .privacy-section {
+        .privacy-image-placeholder {
+            background: rgba($success-color, 0.1);
+            border-radius: $radius-lg;
+            min-height: 350px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+    }
+
+    .cta-section {
+        background: linear-gradient(135deg, $secondary-color, $primary-color);
+    }
+}
