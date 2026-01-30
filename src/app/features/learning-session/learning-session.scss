@@ -1,0 +1,94 @@
+@import '../../../styles/variables';
+
+.learning-session-page {
+    min-height: 100vh;
+    background: $neutral-50;
+
+    .modal.show {
+        display: block;
+    }
+
+    .top-bar {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+    }
+
+    .content-area {
+        min-height: 500px;
+        background: white;
+
+        .content-block {
+            animation: fadeIn 0.5s ease-in;
+
+            .text-content,
+            .visual-content,
+            .interactive-content {
+                line-height: 1.8;
+                font-size: 1.1rem;
+            }
+
+            img {
+                max-width: 100%;
+                height: auto;
+                margin-top: 2rem;
+            }
+        }
+    }
+
+    .status-indicator {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        animation: pulse 2s infinite;
+    }
+
+    .adaptation-timeline {
+        max-height: 300px;
+        overflow-y: auto;
+
+        .timeline-item {
+            position: relative;
+            padding-left: 1rem;
+            border-left: 2px solid $neutral-200;
+
+            .timeline-marker {
+                position: absolute;
+                left: -5px;
+                top: 5px;
+                width: 8px;
+                height: 8px;
+                background: $primary-color;
+                border-radius: 50%;
+            }
+
+            &:last-child {
+                border-left-color: transparent;
+            }
+        }
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
+}
