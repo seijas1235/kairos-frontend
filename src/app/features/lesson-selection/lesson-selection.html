@@ -1,0 +1,91 @@
+<div class="lesson-selection-page">
+    <div class="page-header py-5 bg-gradient text-white">
+        <div class="container">
+            <h1 class="display-4 fw-bold mb-3">Choose Your Learning Path</h1>
+            <p class="lead">Select a lesson and start your adaptive learning journey</p>
+        </div>
+    </div>
+
+    <div class="container py-5">
+        <!-- Filters Section -->
+        <div class="filters-section mb-4">
+            <div class="row g-3">
+                <!-- Search -->
+                <div class="col-md-4">
+                    <div class="input-group">
+                        <span class="input-group-text bg-white">
+                            <i class="bi bi-search"></i>
+                        </span>
+                        <input type="text" class="form-control" placeholder="Search lessons..." [value]="searchTerm"
+                            (input)="onSearchChange($event)">
+                    </div>
+                </div>
+
+                <!-- Subject Filter -->
+                <div class="col-md-3">
+                    <select class="form-select" [value]="selectedSubject"
+                        (change)="onSubjectChange($any($event.target).value)">
+                        <option value="all">All Subjects</option>
+                        @for (subject of subjects; track subject) {
+                        <option [value]="subject">{{ subject }}</option>
+                        }
+                    </select>
+                </div>
+
+                <!-- Difficulty Filter -->
+                <div class="col-md-3">
+                    <select class="form-select" [value]="selectedDifficulty"
+                        (change)="onDifficultyChange($any($event.target).value)">
+                        <option value="all">All Levels</option>
+                        @for (difficulty of difficulties; track difficulty) {
+                        <option [value]="difficulty">{{ difficulty | titlecase }}</option>
+                        }
+                    </select>
+                </div>
+
+                <!-- Clear Filters -->
+                <div class="col-md-2">
+                    <button class="btn btn-outline-secondary w-100" (click)="clearFilters()">
+                        <i class="bi bi-x-circle me-1"></i>Clear
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Results Count -->
+        <div class="results-info mb-4">
+            <p class="text-muted">
+                <i class="bi bi-funnel-fill me-2"></i>
+                Showing <strong>{{ filteredLessons.length }}</strong> of <strong>{{ lessons.length }}</strong> lessons
+            </p>
+        </div>
+
+        <!-- Loading State -->
+        @if (isLoading) {
+        <app-loading-spinner></app-loading-spinner>
+        }
+
+        <!-- Lessons Grid -->
+        @if (!isLoading && filteredLessons.length > 0) {
+        <div class="row g-4">
+            @for (lesson of filteredLessons; track lesson.id) {
+            <div class="col-md-6 col-lg-4">
+                <app-lesson-card [lesson]="lesson"></app-lesson-card>
+            </div>
+            }
+        </div>
+        }
+
+        <!-- No Results -->
+        @if (!isLoading && filteredLessons.length === 0) {
+        <div class="no-results text-center py-5">
+            <i class="bi bi-search display-1 text-muted mb-3"></i>
+            <h4 class="text-muted">No lessons found</h4>
+            <p class="text-muted">Try adjusting your filters or search term</p>
+            <button class="btn btn-primary mt-3" (click)="clearFilters()">
+                Clear Filters
+            </button>
+        </div>
+        }
+    </div>
+</div>

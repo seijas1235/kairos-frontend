@@ -1,0 +1,39 @@
+@import '../../../styles/variables';
+
+.lesson-selection-page {
+    .page-header {
+        background: linear-gradient(135deg, $primary-color, $secondary-color);
+    }
+
+    .filters-section {
+
+        .form-control,
+        .form-select {
+            border-radius: $radius-md;
+            border: 2px solid $neutral-200;
+            transition: all $transition-fast;
+
+            &:focus {
+                border-color: $primary-color;
+                box-shadow: 0 0 0 0.2rem rgba($primary-color, 0.25);
+            }
+        }
+
+        .input-group-text {
+            border: 2px solid $neutral-200;
+            border-right: none;
+        }
+    }
+
+    .results-info {
+        padding: 1rem;
+        background: $neutral-50;
+        border-radius: $radius-md;
+    }
+
+    .no-results {
+        i {
+            opacity: 0.3;
+        }
+    }
+}
