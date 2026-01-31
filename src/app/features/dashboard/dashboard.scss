@@ -1,0 +1,51 @@
+@import '../../../styles/variables';
+
+.dashboard-page {
+    .page-header {
+        background: linear-gradient(135deg, $primary-color, $secondary-color);
+    }
+
+    .stat-card {
+        transition: transform $transition-base;
+
+        &:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-icon {
+            transition: transform $transition-base;
+        }
+
+        &:hover .stat-icon {
+            transform: scale(1.1);
+        }
+    }
+
+    .action-icon {
+        width: 60px;
+        height: 60px;
+        border-radius: $radius-lg;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .lesson-icon {
+        width: 50px;
+        height: 50px;
+        background: rgba($primary-color, 0.1);
+        border-radius: $radius-md;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .list-group-item {
+        transition: all $transition-fast;
+
+        &:hover {
+            background: $neutral-50;
+            transform: translateX(5px);
+        }
+    }
+}

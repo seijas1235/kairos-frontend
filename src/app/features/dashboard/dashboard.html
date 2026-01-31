@@ -1,0 +1,143 @@
+<div class="dashboard-page">
+    <div class="page-header py-4 bg-gradient text-white">
+        <div class="container">
+            <h1 class="display-5 fw-bold mb-2">Your Learning Dashboard</h1>
+            <p class="lead mb-0">Track your progress and continue learning</p>
+        </div>
+    </div>
+
+    <div class="container py-5">
+        <!-- Stats Cards -->
+        <div class="row g-4 mb-5">
+            <div class="col-md-4">
+                <div class="stat-card card border-0 shadow-sm h-100">
+                    <div class="card-body text-center">
+                        <div class="stat-icon text-primary mb-3">
+                            <i class="bi bi-book-fill fs-1"></i>
+                        </div>
+                        <h3 class="fw-bold mb-1">{{ totalLessons }}</h3>
+                        <p class="text-muted mb-0">Available Lessons</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="stat-card card border-0 shadow-sm h-100">
+                    <div class="card-body text-center">
+                        <div class="stat-icon text-success mb-3">
+                            <i class="bi bi-check-circle-fill fs-1"></i>
+                        </div>
+                        <h3 class="fw-bold mb-1">{{ completedLessons }}</h3>
+                        <p class="text-muted mb-0">Completed</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="stat-card card border-0 shadow-sm h-100">
+                    <div class="card-body text-center">
+                        <div class="stat-icon text-warning mb-3">
+                            <i class="bi bi-fire fs-1"></i>
+                        </div>
+                        <h3 class="fw-bold mb-1">{{ learningStreak }}</h3>
+                        <p class="text-muted mb-0">Day Streak</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Progress Overview -->
+        <div class="card border-0 shadow-sm mb-5">
+            <div class="card-body p-4">
+                <h5 class="fw-bold mb-4">Overall Progress</h5>
+                <div class="progress" style="height: 30px;">
+                    <div class="progress-bar bg-success" role="progressbar" [style.width.%]="getProgressPercentage()"
+                        [attr.aria-valuenow]="getProgressPercentage()" aria-valuemin="0" aria-valuemax="100">
+                        <span class="fw-bold">{{ getProgressPercentage().toFixed(0) }}%</span>
+                    </div>
+                </div>
+                <p class="text-muted mt-3 mb-0">
+                    You've completed {{ completedLessons }} out of {{ totalLessons }} lessons
+                </p>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="row g-4 mb-5">
+            <div class="col-md-6">
+                <div class="card border-0 shadow-sm h-100 card-hover">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="action-icon bg-primary bg-opacity-10 text-primary me-3">
+                                <i class="bi bi-play-circle-fill fs-3"></i>
+                            </div>
+                            <div>
+                                <h5 class="fw-bold mb-1">Continue Learning</h5>
+                                <p class="text-muted mb-0 small">Pick up where you left off</p>
+                            </div>
+                        </div>
+                        <a routerLink="/lessons" class="btn btn-primary w-100">
+                            Browse Lessons <i class="bi bi-arrow-right ms-2"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="card border-0 shadow-sm h-100 card-hover">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="action-icon bg-success bg-opacity-10 text-success me-3">
+                                <i class="bi bi-graph-up-arrow fs-3"></i>
+                            </div>
+                            <div>
+                                <h5 class="fw-bold mb-1">View Analytics</h5>
+                                <p class="text-muted mb-0 small">See your learning insights</p>
+                            </div>
+                        </div>
+                        <button class="btn btn-outline-success w-100" disabled>
+                            Coming Soon <i class="bi bi-clock ms-2"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Lessons -->
+        <div class="card border-0 shadow-sm">
+            <div class="card-body p-4">
+                <h5 class="fw-bold mb-4">Recent Lessons</h5>
+                @if (recentLessons.length > 0) {
+                <div class="list-group list-group-flush">
+                    @for (lesson of recentLessons; track lesson.id) {
+                    <a [routerLink]="['/learn', lesson.id]"
+                        class="list-group-item list-group-item-action border-0 px-0">
+                        <div class="d-flex align-items-center">
+                            <div class="lesson-icon me-3">
+                                <i class="bi bi-book-fill text-primary fs-4"></i>
+                            </div>
+                            <div class="flex-grow-1">
+                                <h6 class="mb-1 fw-bold">{{ lesson.title }}</h6>
+                                <p class="mb-0 text-muted small">{{ lesson.description }}</p>
+                            </div>
+                            <div class="text-end">
+                                <span class="badge bg-light text-dark">{{ lesson.difficulty }}</span>
+                                <br>
+                                <small class="text-muted">
+                                    <i class="bi bi-clock me-1"></i>{{ lesson.estimatedMinutes }} min
+                                </small>
+                            </div>
+                        </div>
+                    </a>
+                    }
+                </div>
+                } @else {
+                <p class="text-muted mb-0">
+                    <i class="bi bi-info-circle me-2"></i>
+                    No lessons available. Start learning today!
+                </p>
+                }
+            </div>
+        </div>
+    </div>
+</div>
