@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -6,11 +6,13 @@ import { LessonService } from '../../core/services/lesson';
 import { EmotionDetectionService } from '../../core/services/emotion-detection';
 import { CameraService } from '../../core/services/camera';
 import { AdaptationService } from '../../core/services/adaptation';
+import { WebSocketService } from '../../core/services/websocket.service';
 import { Lesson, ContentBlock } from '../../core/models/lesson.model';
 import { EmotionDetection, EmotionState } from '../../core/models/emotion.model';
 import { AdaptationEvent } from '../../core/models/adaptation.model';
 import { EmotionIndicator } from '../../shared/components/emotion-indicator/emotion-indicator';
 import { LoadingSpinner } from '../../shared/components/loading-spinner/loading-spinner';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-learning-session',
@@ -18,7 +20,9 @@ import { LoadingSpinner } from '../../shared/components/loading-spinner/loading-
   templateUrl: './learning-session.html',
   styleUrl: './learning-session.scss',
 })
-export class LearningSession implements OnInit, OnDestroy {
+export class LearningSession implements OnInit, OnDestroy, AfterViewInit {
+  @ViewChild('videoElement') videoElementRef!: ElementRef<HTMLVideoElement>;
+
   lesson: Lesson | null = null;
   currentBlock: ContentBlock | null = null;
   currentEmotion: EmotionDetection | null = null;
@@ -27,6 +31,7 @@ export class LearningSession implements OnInit, OnDestroy {
   isLoading = true;
   isCameraActive = false;
   showCameraPermissionModal = true;
+  sessionId = `session_${Date.now()}`;
 
   private subscriptions: Subscription[] = [];
 
@@ -36,7 +41,8 @@ export class LearningSession implements OnInit, OnDestroy {
     private lessonService: LessonService,
     private emotionService: EmotionDetectionService,
     private cameraService: CameraService,
-    private adaptationService: AdaptationService
+    private adaptationService: AdaptationService,
+    private wsService: WebSocketService
   ) { }
 
   ngOnInit(): void {
@@ -46,6 +52,15 @@ export class LearningSession implements OnInit, OnDestroy {
     } else {
       this.router.navigate(['/lessons']);
     }
+
+    // Connect to WebSocket if not in demo mode
+    if (!environment.demoMode) {
+      this.wsService.connect(this.sessionId);
+    }
+  }
+
+  ngAfterViewInit(): void {
+    // Video element is now available
   }
 
   ngOnDestroy(): void {
@@ -73,13 +88,22 @@ export class LearningSession implements OnInit, OnDestroy {
 
   async startLearningSession(): Promise<void> {
     try {
-      // Start camera
-      await this.cameraService.startCamera();
+      const videoElement = this.videoElementRef?.nativeElement;
+
+      // Start camera with video element
+      if (videoElement) {
+        await this.cameraService.startCamera(videoElement);
+      } else {
+        await this.cameraService.startCamera();
+      }
+
       this.isCameraActive = true;
       this.showCameraPermissionModal = false;
 
       // Start emotion detection
-      this.emotionService.startDetection(true); // Use demo sequence
+      // Use demo mode if configured, otherwise use real backend
+      const useDemoMode = environment.demoMode;
+      await this.emotionService.startDetection(useDemoMode, videoElement);
 
       // Subscribe to emotion changes
       const emotionSub = this.emotionService.currentEmotion$.subscribe(emotion => {
@@ -98,9 +122,15 @@ export class LearningSession implements OnInit, OnDestroy {
       if (this.lesson) {
         this.lessonService.startLesson(this.lesson.id);
       }
-    } catch (error) {
+
+      console.log(`Learning session started (${useDemoMode ? 'DEMO' : 'REAL'} mode)`);
+
+    } catch (error: any) {
       console.error('Error starting learning session:', error);
-      alert('Failed to start camera. Please check permissions.');
+      const errorMsg = error.message || 'Failed to start camera. Please check permissions.';
+      alert(errorMsg);
+      this.showCameraPermissionModal = false;
+      this.router.navigate(['/lessons']);
     }
   }
 
@@ -168,6 +198,11 @@ export class LearningSession implements OnInit, OnDestroy {
     this.cameraService.stopCamera();
     this.lessonService.clearProgress();
     this.isCameraActive = false;
+
+    // Disconnect WebSocket
+    if (!environment.demoMode) {
+      this.wsService.disconnect();
+    }
   }
 
   denyCamera(): void {
