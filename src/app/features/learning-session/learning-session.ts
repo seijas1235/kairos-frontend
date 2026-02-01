@@ -90,12 +90,12 @@ export class LearningSession implements OnInit, OnDestroy, AfterViewInit {
     try {
       const videoElement = this.videoElementRef?.nativeElement;
 
-      // Start camera with video element
-      if (videoElement) {
-        await this.cameraService.startCamera(videoElement);
-      } else {
-        await this.cameraService.startCamera();
+      if (!videoElement) {
+        throw new Error('Video element not found. Please refresh the page.');
       }
+
+      // Start camera with video element
+      await this.cameraService.startCamera(videoElement);
 
       this.isCameraActive = true;
       this.showCameraPermissionModal = false;
@@ -103,6 +103,9 @@ export class LearningSession implements OnInit, OnDestroy, AfterViewInit {
       // Start emotion detection
       // Use demo mode if configured, otherwise use real backend
       const useDemoMode = environment.demoMode;
+
+      // Set video element in emotion service before starting
+      this.emotionService.setVideoElement(videoElement);
       await this.emotionService.startDetection(useDemoMode, videoElement);
 
       // Subscribe to emotion changes
