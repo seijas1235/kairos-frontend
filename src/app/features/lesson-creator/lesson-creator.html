@@ -1,0 +1,117 @@
+<div class="lesson-creator-container">
+    <div class="creator-card">
+        <!-- Header -->
+        <div class="header">
+            <h1>🎓 Create Your Personalized Lesson</h1>
+            <p>Tell us what you want to learn, and our AI will create a custom lesson just for you</p>
+        </div>
+
+        <!-- Main Form -->
+        <form (ngSubmit)="generateLesson()" class="lesson-form">
+
+            <!-- Topic Input -->
+            <div class="form-group">
+                <label for="topic">
+                    <span class="label-icon">💡</span>
+                    What do you want to learn?
+                </label>
+                <input type="text" id="topic" [(ngModel)]="topic" name="topic"
+                    placeholder="e.g., Quantum Physics, Machine Learning, Ancient Rome..." class="topic-input"
+                    [disabled]="isGenerating()" required />
+            </div>
+
+            <!-- Example Topics -->
+            <div class="example-topics">
+                <p class="example-label">Or try one of these:</p>
+                <div class="example-grid">
+                    @for (example of exampleTopics; track example.topic) {
+                    <button type="button" class="example-chip" (click)="selectExample(example)"
+                        [disabled]="isGenerating()">
+                        <span class="chip-icon">{{ example.icon }}</span>
+                        <span class="chip-text">{{ example.topic }}</span>
+                    </button>
+                    }
+                </div>
+            </div>
+
+            <!-- Level Selection -->
+            <div class="form-group">
+                <label>
+                    <span class="label-icon">📊</span>
+                    Your Level
+                </label>
+                <div class="option-grid">
+                    @for (lvl of levels; track lvl.value) {
+                    <button type="button" class="option-card" [class.selected]="level() === lvl.value"
+                        (click)="level.set(lvl.value)" [disabled]="isGenerating()">
+                        <span class="option-icon">{{ lvl.icon }}</span>
+                        <div class="option-content">
+                            <h3>{{ lvl.label }}</h3>
+                            <p>{{ lvl.description }}</p>
+                        </div>
+                    </button>
+                    }
+                </div>
+            </div>
+
+            <!-- Learning Style Selection -->
+            <div class="form-group">
+                <label>
+                    <span class="label-icon">🎨</span>
+                    Learning Style
+                </label>
+                <div class="option-grid">
+                    @for (style of styles; track style.value) {
+                    <button type="button" class="option-card" [class.selected]="learningStyle() === style.value"
+                        (click)="learningStyle.set(style.value)" [disabled]="isGenerating()">
+                        <span class="option-icon">{{ style.icon }}</span>
+                        <div class="option-content">
+                            <h3>{{ style.label }}</h3>
+                            <p>{{ style.description }}</p>
+                        </div>
+                    </button>
+                    }
+                </div>
+            </div>
+
+            <!-- Optional Age -->
+            <div class="form-group optional">
+                <label for="age">
+                    <span class="label-icon">👤</span>
+                    Age (Optional)
+                    <span class="optional-badge">Optional</span>
+                </label>
+                <input type="number" id="age" [(ngModel)]="age" name="age" placeholder="For age-appropriate content"
+                    class="age-input" min="5" max="100" [disabled]="isGenerating()" />
+            </div>
+
+            <!-- Error Message -->
+            @if (error()) {
+            <div class="error-message">
+                <span class="error-icon">⚠️</span>
+                {{ error() }}
+            </div>
+            }
+
+            <!-- Submit Button -->
+            <button type="submit" class="generate-button" [disabled]="isGenerating() || !topic().trim()"
+                [class.loading]="isGenerating()">
+                @if (isGenerating()) {
+                <span class="spinner"></span>
+                <span>Generating Your Lesson...</span>
+                } @else {
+                <span class="button-icon">✨</span>
+                <span>Generate Lesson</span>
+                }
+            </button>
+        </form>
+
+        <!-- Info Footer -->
+        <div class="info-footer">
+            <p>
+                <strong>🤖 Powered by Gemini 3 Pro</strong> -
+                Your lesson will be generated in real-time and adapted to your emotions as you learn
+            </p>
+        </div>
+    </div>
+</div>

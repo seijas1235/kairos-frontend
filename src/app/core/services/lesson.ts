@@ -1,5 +1,6 @@
-import { Injectable } from '@angular/core';
-import { Observable, of, BehaviorSubject } from 'rxjs';
+import { Injectable, inject } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable, of, BehaviorSubject, firstValueFrom } from 'rxjs';
 import { Lesson, LessonProgress } from '../models/lesson.model';
 import { MOCK_LESSONS } from './mock-data/mock-lessons';
 import { environment } from '../../../environments/environment';
@@ -8,8 +9,12 @@ import { environment } from '../../../environments/environment';
   providedIn: 'root'
 })
 export class LessonService {
+  private http = inject(HttpClient);
   private currentProgressSubject = new BehaviorSubject<LessonProgress | null>(null);
   public currentProgress$ = this.currentProgressSubject.asObservable();
+
+  // Store for dynamically generated lessons
+  private generatedLessons = new Map<string, any>();
 
   constructor() { }
 
@@ -23,8 +28,13 @@ export class LessonService {
     return of(MOCK_LESSONS);
   }
 
-  // Get a specific lesson by ID
+  // Get a specific lesson by ID (checks generated lessons first)
   getLessonById(id: string): Observable<Lesson | undefined> {
+    // Check if it's a generated lesson
+    if (this.generatedLessons.has(id)) {
+      return of(this.generatedLessons.get(id));
+    }
+
     if (environment.useMockData) {
       const lesson = MOCK_LESSONS.find(l => l.id === id);
       return of(lesson);
@@ -32,6 +42,28 @@ export class LessonService {
     // TODO: Replace with actual API call
     // return this.http.get<Lesson>(`${environment.apiUrl}/lessons/${id}`);
     return of(MOCK_LESSONS.find(l => l.id === id));
+  }
+
+  // Generate a new lesson using AI
+  async generateLesson(params: {
+    topic: string;
+    level: string;
+    learning_style: string;
+    age?: number;
+  }): Promise<any> {
+    try {
+      const response = await firstValueFrom(
+        this.http.post<any>(`${environment.apiUrl}/lessons/generate/`, params)
+      );
+
+      // Store the generated lesson
+      this.generatedLessons.set(response.lesson_id, response);
+
+      return response;
+    } catch (error) {
+      console.error('Error generating lesson:', error);
+      throw error;
+    }
   }
 
   // Filter lessons by subject

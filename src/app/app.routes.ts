@@ -14,7 +14,11 @@ export const routes: Routes = [
         loadComponent: () => import('./features/lesson-selection/lesson-selection').then(m => m.LessonSelection)
     },
     {
-        path: 'learn/:lessonId',
+        path: 'create-lesson',
+        loadComponent: () => import('./features/lesson-creator/lesson-creator').then(m => m.LessonCreator)
+    },
+    {
+        path: 'lesson/:lessonId',
         loadComponent: () => import('./features/learning-session/learning-session').then(m => m.LearningSession)
     },
     {
