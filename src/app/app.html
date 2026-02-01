@@ -1,5 +1,20 @@
 <div class="app-container d-flex flex-column min-vh-100">
-  <app-navbar></app-navbar>
+  <nav class="navbar">
+    <div class="nav-content">
+      <a routerLink="/" class="logo">
+        <span class="logo-icon">🎓</span>
+        <span class="logo-text">KAIROS</span>
+      </a>
+
+      <div class="nav-links">
+        <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a>
+        <a routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
+        <a routerLink="/lessons" routerLinkActive="active">History</a>
+        <a routerLink="/create-lesson" routerLinkActive="active" class="cta-link">Create Lesson</a>
+        <app-language-selector></app-language-selector>
+      </div>
+    </div>
+  </nav>
 
   <main class="flex-grow-1">
     <router-outlet />

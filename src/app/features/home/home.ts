@@ -1,14 +1,17 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { I18nService } from '../../core/services/i18n';
 
 @Component({
   selector: 'app-home',
+  standalone: true,
   imports: [CommonModule, RouterLink],
   templateUrl: './home.html',
-  styleUrl: './home.scss',
+  styleUrls: ['./home.scss']
 })
 export class Home {
+  i18n = inject(I18nService);
   features = [
     {
       icon: 'bi-camera-video-fill',
