@@ -75,14 +75,18 @@
             </div>
 
             <!-- Optional Age -->
-            <div class="form-group optional">
-                <label for="age">
-                    <span class="label-icon">👤</span>
-                    Age (Optional)
-                    <span class="optional-badge">Optional</span>
-                </label>
+            <div class="form-group">
+                <label for="age">Age <span class="optional">(Optional)</span></label>
                 <input type="number" id="age" [(ngModel)]="age" name="age" placeholder="For age-appropriate content"
-                    class="age-input" min="5" max="100" [disabled]="isGenerating()" />
+                    min="5" max="100" [disabled]="isGenerating()" />
+            </div>
+
+            <!-- Alias (Optional) -->
+            <div class="form-group">
+                <label for="alias">Your Name/Alias <span class="optional">(Optional)</span></label>
+                <input type="text" id="alias" [(ngModel)]="alias" name="alias" placeholder="How should we call you?"
+                    maxlength="50" [disabled]="isGenerating()" />
+                <small class="hint">💡 We'll use this to personalize your learning experience</small>
             </div>
 
             <!-- Error Message -->

@@ -1,0 +1,98 @@
+.language-selector {
+    position: relative;
+    display: inline-block;
+}
+
+.lang-button {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 0.9rem;
+
+    &:hover {
+        background: #f7fafc;
+        border-color: #cbd5e0;
+    }
+
+    .flag {
+        font-size: 1.2rem;
+    }
+
+    .lang-code {
+        font-weight: 600;
+        color: #2d3748;
+    }
+
+    .arrow {
+        font-size: 0.7rem;
+        color: #718096;
+        transition: transform 0.2s;
+
+        &.open {
+            transform: rotate(180deg);
+        }
+    }
+}
+
+.dropdown {
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    right: 0;
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    z-index: 1001;
+    min-width: 150px;
+}
+
+.lang-option {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    width: 100%;
+    padding: 0.75rem 1rem;
+    background: white;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s;
+    text-align: left;
+
+    &:hover {
+        background: #f7fafc;
+    }
+
+    &.active {
+        background: #edf2f7;
+
+        .lang-name {
+            font-weight: 600;
+            color: #667eea;
+        }
+    }
+
+    .flag {
+        font-size: 1.3rem;
+    }
+
+    .lang-name {
+        font-size: 0.9rem;
+        color: #2d3748;
+    }
+}
+
+.backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1000;
+}

@@ -1,0 +1,152 @@
+{
+    "common": {
+        "appName": "KAIROS",
+        "loading": "Cargando...",
+        "error": "Error",
+        "success": "Éxito",
+        "cancel": "Cancelar",
+        "save": "Guardar",
+        "delete": "Eliminar",
+        "edit": "Editar",
+        "close": "Cerrar"
+    },
+    "nav": {
+        "home": "Inicio",
+        "dashboard": "Panel",
+        "lessons": "Historial de Aprendizaje",
+        "createLesson": "Crear Lección",
+        "settings": "Configuración"
+    },
+    "home": {
+        "hero": {
+            "title": "Aprende Mejor con",
+            "titleHighlight": "IA y",
+            "titleEnd": "Detección de Emociones",
+            "subtitle": "KAIROS adapta tu experiencia de aprendizaje en tiempo real según tus emociones. ¿Confundido? Te mostramos visuales. ¿Aburrido? ¡Hagámoslo interactivo!",
+            "createLesson": "Crear Lección",
+            "browseLessons": "Ver Historial"
+        },
+        "features": {
+            "title": "¿Por Qué Elegir KAIROS?",
+            "subtitle": "Revolucionando la educación con IA consciente de emociones"
+        },
+        "howItWorks": {
+            "title": "Cómo Funciona",
+            "subtitle": "Comienza en 4 simples pasos"
+        },
+        "cta": {
+            "title": "¿Listo para Transformar tu Aprendizaje?",
+            "subtitle": "Únete a miles de estudiantes aprendiendo mejor con KAIROS",
+            "button": "Comenzar Ahora"
+        }
+    },
+    "lessonCreator": {
+        "title": "Crea tu Lección Personalizada",
+        "subtitle": "Dinos qué quieres aprender y nuestra IA creará una lección personalizada para ti",
+        "topic": {
+            "label": "¿Qué quieres aprender?",
+            "placeholder": "ej., Física Cuántica, Aprendizaje Automático, Roma Antigua..."
+        },
+        "examples": "O prueba uno de estos:",
+        "level": {
+            "label": "Tu Nivel",
+            "beginner": "Principiante",
+            "beginnerDesc": "Nuevo en este tema",
+            "intermediate": "Intermedio",
+            "intermediateDesc": "Algo de conocimiento",
+            "advanced": "Avanzado",
+            "advancedDesc": "Comprensión profunda"
+        },
+        "style": {
+            "label": "Estilo de Aprendizaje",
+            "visual": "Visual",
+            "visualDesc": "Diagramas e imágenes",
+            "textual": "Textual",
+            "textualDesc": "Explicaciones escritas",
+            "interactive": "Interactivo",
+            "interactiveDesc": "Práctica práctica",
+            "mixed": "Mixto",
+            "mixedDesc": "Enfoque equilibrado"
+        },
+        "age": {
+            "label": "Edad",
+            "optional": "Opcional",
+            "placeholder": "Para contenido apropiado a la edad"
+        },
+        "alias": {
+            "label": "Tu Nombre/Alias",
+            "optional": "Opcional",
+            "placeholder": "¿Cómo deberíamos llamarte?",
+            "hint": "Usaremos esto para personalizar tu experiencia de aprendizaje"
+        },
+        "generate": "Generar Lección",
+        "generating": "Generando tu Lección...",
+        "footer": "Impulsado por Gemini 3 Pro - Tu lección se generará en tiempo real y se adaptará a tus emociones mientras aprendes",
+        "errors": {
+            "topicRequired": "Por favor ingresa un tema que quieras aprender",
+            "generationFailed": "Error al generar la lección. Por favor intenta de nuevo."
+        }
+    },
+    "learningSession": {
+        "loading": "Cargando lección...",
+        "start": "Comenzar a Aprender",
+        "stop": "Detener Sesión",
+        "next": "Siguiente Bloque",
+        "previous": "Bloque Anterior",
+        "complete": "Completar Lección",
+        "cameraPermission": "Se requiere permiso de cámara para detección de emociones",
+        "grantPermission": "Conceder Permiso",
+        "emotion": {
+            "engaged": "Comprometido",
+            "confused": "Confundido",
+            "bored": "Aburrido",
+            "neutral": "Neutral",
+            "frustrated": "Frustrado"
+        },
+        "greeting": {
+            "hello": "Hola",
+            "welcome": "Bienvenido de nuevo",
+            "letsStart": "¡Comencemos a aprender!"
+        },
+        "adaptation": {
+            "confused": "Veo que estás confundido. Déjame explicarlo de otra manera.",
+            "bored": "Pareces aburrido. ¡Hagamos esto más interesante!",
+            "frustrated": "No te preocupes, lo lograremos juntos."
+        }
+    },
+    "history": {
+        "title": "Tu Historial de Aprendizaje",
+        "empty": "Aún no hay sesiones de aprendizaje. ¡Crea tu primera lección!",
+        "session": {
+            "duration": "Duración",
+            "completed": "Completado",
+            "inProgress": "En Progreso",
+            "minutes": "min",
+            "retake": "Repetir Lección"
+        },
+        "analytics": {
+            "title": "Análisis de Emociones",
+            "engaged": "Comprometido",
+            "confused": "Confundido",
+            "bored": "Aburrido",
+            "neutral": "Neutral"
+        }
+    },
+    "dashboard": {
+        "welcome": "Bienvenido",
+        "stats": {
+            "totalLessons": "Lecciones Totales",
+            "hoursLearned": "Horas Aprendidas",
+            "avgEngagement": "Compromiso Promedio",
+            "completion": "Tasa de Finalización"
+        }
+    },
+    "settings": {
+        "title": "Configuración",
+        "language": "Idioma",
+        "alias": "Tu Nombre/Alias",
+        "aliasPlaceholder": "¿Cómo deberíamos llamarte?",
+        "theme": "Tema",
+        "notifications": "Notificaciones"
+    }
+}

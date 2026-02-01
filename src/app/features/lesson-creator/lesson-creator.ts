@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LessonService } from '../../core/services/lesson';
+import { UserPreferencesService } from '../../core/services/user-preferences';
 
 @Component({
     selector: 'app-lesson-creator',
@@ -17,6 +18,7 @@ export class LessonCreator {
     level = signal<'beginner' | 'intermediate' | 'advanced'>('beginner');
     learningStyle = signal<'visual' | 'textual' | 'interactive' | 'mixed'>('mixed');
     age = signal<number | null>(null);
+    alias = signal('');  // User's name/alias
 
     // UI state
     isGenerating = signal(false);
@@ -38,8 +40,12 @@ export class LessonCreator {
 
     constructor(
         private lessonService: LessonService,
-        private router: Router
-    ) { }
+        private router: Router,
+        private userPrefs: UserPreferencesService
+    ) {
+        // Load saved alias
+        this.alias.set(this.userPrefs.getAlias());
+    }
 
     async generateLesson(): Promise<void> {
         // Validate topic
@@ -59,18 +65,24 @@ export class LessonCreator {
                 age: this.age()
             });
 
+            // Save alias if provided
+            if (this.alias().trim()) {
+                this.userPrefs.setAlias(this.alias().trim());
+            }
+
             // Call lesson service to generate lesson
             const lesson = await this.lessonService.generateLesson({
                 topic: this.topic(),
                 level: this.level(),
                 learning_style: this.learningStyle(),
-                age: this.age() || undefined
+                age: this.age() || undefined,
+                alias: this.alias().trim() || undefined
             });
 
             console.log('Lesson generated:', lesson);
 
             // Navigate to learning session with generated lesson
-            this.router.navigate(['/lesson', lesson.lesson_id]);
+            this.router.navigate(['/lesson', lesson.id]);
 
         } catch (error: any) {
             console.error('Error generating lesson:', error);

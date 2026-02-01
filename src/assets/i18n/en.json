@@ -1,0 +1,152 @@
+{
+    "common": {
+        "appName": "KAIROS",
+        "loading": "Loading...",
+        "error": "Error",
+        "success": "Success",
+        "cancel": "Cancel",
+        "save": "Save",
+        "delete": "Delete",
+        "edit": "Edit",
+        "close": "Close"
+    },
+    "nav": {
+        "home": "Home",
+        "dashboard": "Dashboard",
+        "lessons": "Learning History",
+        "createLesson": "Create Lesson",
+        "settings": "Settings"
+    },
+    "home": {
+        "hero": {
+            "title": "Learn Smarter with",
+            "titleHighlight": "AI-Powered",
+            "titleEnd": "Emotion Detection",
+            "subtitle": "KAIROS adapts your learning experience in real-time based on your emotions. Confused? We'll show you visuals. Bored? Let's make it interactive!",
+            "createLesson": "Create Lesson",
+            "browseLessons": "Browse Lessons"
+        },
+        "features": {
+            "title": "Why Choose KAIROS?",
+            "subtitle": "Revolutionizing education with emotion-aware AI"
+        },
+        "howItWorks": {
+            "title": "How It Works",
+            "subtitle": "Get started in 4 simple steps"
+        },
+        "cta": {
+            "title": "Ready to Transform Your Learning?",
+            "subtitle": "Join thousands of students learning smarter with KAIROS",
+            "button": "Get Started Now"
+        }
+    },
+    "lessonCreator": {
+        "title": "Create Your Personalized Lesson",
+        "subtitle": "Tell us what you want to learn, and our AI will create a custom lesson just for you",
+        "topic": {
+            "label": "What do you want to learn?",
+            "placeholder": "e.g., Quantum Physics, Machine Learning, Ancient Rome..."
+        },
+        "examples": "Or try one of these:",
+        "level": {
+            "label": "Your Level",
+            "beginner": "Beginner",
+            "beginnerDesc": "New to this topic",
+            "intermediate": "Intermediate",
+            "intermediateDesc": "Some knowledge",
+            "advanced": "Advanced",
+            "advancedDesc": "Deep understanding"
+        },
+        "style": {
+            "label": "Learning Style",
+            "visual": "Visual",
+            "visualDesc": "Diagrams and images",
+            "textual": "Textual",
+            "textualDesc": "Written explanations",
+            "interactive": "Interactive",
+            "interactiveDesc": "Hands-on practice",
+            "mixed": "Mixed",
+            "mixedDesc": "Balanced approach"
+        },
+        "age": {
+            "label": "Age",
+            "optional": "Optional",
+            "placeholder": "For age-appropriate content"
+        },
+        "alias": {
+            "label": "Your Name/Alias",
+            "optional": "Optional",
+            "placeholder": "How should we call you?",
+            "hint": "We'll use this to personalize your learning experience"
+        },
+        "generate": "Generate Lesson",
+        "generating": "Generating Your Lesson...",
+        "footer": "Powered by Gemini 3 Pro - Your lesson will be generated in real-time and adapted to your emotions as you learn",
+        "errors": {
+            "topicRequired": "Please enter a topic you want to learn",
+            "generationFailed": "Failed to generate lesson. Please try again."
+        }
+    },
+    "learningSession": {
+        "loading": "Loading lesson...",
+        "start": "Start Learning",
+        "stop": "Stop Session",
+        "next": "Next Block",
+        "previous": "Previous Block",
+        "complete": "Complete Lesson",
+        "cameraPermission": "Camera permission required for emotion detection",
+        "grantPermission": "Grant Permission",
+        "emotion": {
+            "engaged": "Engaged",
+            "confused": "Confused",
+            "bored": "Bored",
+            "neutral": "Neutral",
+            "frustrated": "Frustrated"
+        },
+        "greeting": {
+            "hello": "Hello",
+            "welcome": "Welcome back",
+            "letsStart": "Let's start learning!"
+        },
+        "adaptation": {
+            "confused": "I see you're confused. Let me explain this differently.",
+            "bored": "You seem bored. Let's make this more interesting!",
+            "frustrated": "Don't worry, we'll get through this together."
+        }
+    },
+    "history": {
+        "title": "Your Learning History",
+        "empty": "No learning sessions yet. Create your first lesson!",
+        "session": {
+            "duration": "Duration",
+            "completed": "Completed",
+            "inProgress": "In Progress",
+            "minutes": "min",
+            "retake": "Retake Lesson"
+        },
+        "analytics": {
+            "title": "Emotion Analytics",
+            "engaged": "Engaged",
+            "confused": "Confused",
+            "bored": "Bored",
+            "neutral": "Neutral"
+        }
+    },
+    "dashboard": {
+        "welcome": "Welcome",
+        "stats": {
+            "totalLessons": "Total Lessons",
+            "hoursLearned": "Hours Learned",
+            "avgEngagement": "Avg Engagement",
+            "completion": "Completion Rate"
+        }
+    },
+    "settings": {
+        "title": "Settings",
+        "language": "Language",
+        "alias": "Your Name/Alias",
+        "aliasPlaceholder": "How should we call you?",
+        "theme": "Theme",
+        "notifications": "Notifications"
+    }
+}

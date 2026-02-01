@@ -50,6 +50,7 @@ export class LessonService {
     level: string;
     learning_style: string;
     age?: number;
+    alias?: string;
   }): Promise<any> {
     try {
       const response = await firstValueFrom(

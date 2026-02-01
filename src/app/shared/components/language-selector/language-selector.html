@@ -1,0 +1,23 @@
+<div class="language-selector">
+    <button class="lang-button" (click)="toggleDropdown()" type="button">
+        <span class="flag">{{ getCurrentLanguage()?.flag }}</span>
+        <span class="lang-code">{{ getCurrentLanguage()?.code?.toUpperCase() }}</span>
+        <span class="arrow" [class.open]="isOpen">▼</span>
+    </button>
+
+    @if (isOpen) {
+    <div class="dropdown">
+        @for (lang of languages; track lang.code) {
+        <button class="lang-option" [class.active]="lang.code === i18n.currentLang()"
+            (click)="selectLanguage(lang.code)" type="button">
+            <span class="flag">{{ lang.flag }}</span>
+            <span class="lang-name">{{ lang.name }}</span>
+        </button>
+        }
+    </div>
+    }
+</div>
+
+@if (isOpen) {
+<div class="backdrop" (click)="toggleDropdown()"></div>
+}
