@@ -56,10 +56,30 @@ export class LessonService {
         this.http.post<any>(`${environment.apiUrl}/lessons/generate/`, params)
       );
 
-      // Store the generated lesson
-      this.generatedLessons.set(response.lesson_id, response);
+      // Transform the response to match our Lesson model
+      const transformedLesson = {
+        id: response.lesson_id,
+        title: response.title,
+        subject: params.topic,
+        difficulty: response.difficulty_level || params.level,
+        description: response.description,
+        duration: response.estimated_duration_minutes || 30,
+        objectives: response.objectives || [],
+        contentBlocks: response.content_blocks.map((block: any) => ({
+          id: block.id,
+          type: block.type,
+          title: block.title,
+          content: block.content,
+          duration: block.duration_minutes || 5
+        })),
+        imageUrl: 'https://via.placeholder.com/300x200/667eea/ffffff?text=' + encodeURIComponent(params.topic),
+        metadata: response.metadata
+      };
 
-      return response;
+      // Store the transformed lesson
+      this.generatedLessons.set(response.lesson_id, transformedLesson);
+
+      return transformedLesson;
     } catch (error) {
       console.error('Error generating lesson:', error);
       throw error;
