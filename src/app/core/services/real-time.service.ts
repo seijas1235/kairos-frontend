@@ -1,0 +1,140 @@
+import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+import { webSocket, WebSocketSubject } from 'rxjs/webSocket';
+import { Subject, Observable, throwError } from 'rxjs';
+import { catchError, retry } from 'rxjs/operators';
+import { environment } from '../../../environments/environment';
+
+export interface MessageChunk {
+    type: 'text' | 'image_prompt' | 'error';
+    content: string;
+}
+
+export interface WebSocketMessage {
+    emotion?: {
+        emotion: string;
+        confidence: number;
+        action: string;
+    };
+    content?: MessageChunk[];
+    learning_path?: any;
+    error?: string;
+    type?: string; // Add type for lesson_summary check
+}
+
+@Injectable({
+    providedIn: 'root'
+})
+export class RealTimeService {
+    // ... existing props ...
+    private socket$: WebSocketSubject<WebSocketMessage> | null = null;
+
+    // Subjects for different data streams
+    private lessonContentSubject = new Subject<MessageChunk[]>();
+    private emotionEventSubject = new Subject<any>();
+    private connectionStatusSubject = new Subject<boolean>();
+
+    public lessonStream$ = this.lessonContentSubject.asObservable();
+    public emotionEvents$ = this.emotionEventSubject.asObservable();
+    public isConnected$ = this.connectionStatusSubject.asObservable();
+
+    constructor(private router: Router) { }
+
+    public connect(url: string = environment.wsUrl || 'ws://localhost:8000/ws/session/'): void {
+        if (this.socket$ && !this.socket$.closed) {
+            return;
+        }
+
+        this.socket$ = webSocket({
+            url: url,
+            openObserver: {
+                next: () => {
+                    console.log('[RealTimeService] Connection established');
+                    this.connectionStatusSubject.next(true);
+                }
+            },
+            closeObserver: {
+                next: () => {
+                    console.log('[RealTimeService] Connection closed');
+                    this.connectionStatusSubject.next(false);
+                    this.socket$ = null;
+                }
+            }
+        });
+
+        this.socket$.pipe(
+            retry({ count: 5, delay: 2000 }), // Retry connection logic
+            catchError(error => {
+                console.error('[RealTimeService] WebSocket error:', error);
+                return throwError(() => new Error(error));
+            })
+        ).subscribe({
+            next: (message: WebSocketMessage) => this.handleMessage(message),
+            error: (err) => console.error('[RealTimeService] Subscription error:', err)
+        });
+    }
+
+    public sendMessage(msg: any): void {
+        if (this.socket$) {
+            this.socket$.next(msg);
+        } else {
+            console.warn('[RealTimeService] Cannot send message, socket not connected.');
+        }
+    }
+
+    public startSession(formData: any): void {
+        const payload = {
+            start_lesson: true,
+            topic: formData.topic,
+            user_alias: formData.alias || 'User',
+            difficulty: formData.difficulty || 'Intermediate',
+            style: formData.style || 'Visual',
+            language: formData.language || 'es'
+        };
+        console.log('[RealTimeService] Starting session with payload:', payload);
+        this.sendMessage(payload);
+    }
+
+    public disconnect(): void {
+        if (this.socket$) {
+            this.socket$.complete();
+            this.socket$ = null;
+        }
+    }
+
+    private handleMessage(message: WebSocketMessage): void {
+        console.log('[RealTimeService] Recibido:', message);
+
+        // 1. Manejar Eventos de Emoción / Interrupción
+        if (message.emotion) {
+            // Si la emoción indica confusión, emitir evento
+            if (message.emotion.action === 'interrupt' || message.emotion.emotion === 'confusion') {
+                this.emotionEventSubject.next(message.emotion);
+            }
+        }
+
+        // 2. Manejar Contenido de Lección (CORRECCIÓN: verificar type)
+        const messageType = (message as any).type;
+        if (messageType === 'lesson_content' && message.content && Array.isArray(message.content)) {
+            console.log('✅ [RealTimeService] Contenido de lección recibido:', message.content.length, 'chunks');
+            this.lessonContentSubject.next(message.content);
+        }
+
+        // 3. Manejar Learning Path (solo log, no acción)
+        if (messageType === 'learning_path') {
+            console.log('📍 [RealTimeService] Learning Path recibido:', (message as any).data);
+        }
+
+        // 4. Manejar Resumen de Lección (Finalización)
+        if (messageType === 'lesson_summary') {
+            console.log('🏁 [RealTimeService] Resumen de lección recibido');
+            localStorage.setItem('kairos_history', JSON.stringify(message));
+            this.router.navigate(['/dashboard']);
+        }
+
+        // 5. Manejar Errores
+        if (message.error) {
+            console.error('❌ [RealTimeService] Error del servidor:', message.error);
+        }
+    }
+}

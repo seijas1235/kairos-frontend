@@ -24,6 +24,7 @@ export interface Lesson {
     // Session tracking
     sessionHistory?: Message[];
     completedAt?: Date;
+    progress?: number;
 }
 
 export interface Curriculum {
