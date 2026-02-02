@@ -5,42 +5,39 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header border-0">
-                    <h5 class="modal-title fw-bold">
-                        <i class="bi bi-camera-video-fill text-primary me-2"></i>
-                        Camera Permission Required
-                    </h5>
+                    <h5 class="modal-title">{{ i18n.t('learningSession.cameraPermission.title') }}</h5>
                 </div>
-                <div class="modal-body">
-                    <div class="text-center mb-4">
-                        <i class="bi bi-shield-check display-1 text-success"></i>
+                <div class="modal-body text-center">
+                    <div class="permission-icon mb-4">
+                        <i class="bi bi-camera-video display-1 text-primary"></i>
                     </div>
-                    <h6 class="fw-bold mb-3">Why do we need camera access?</h6>
-                    <ul class="list-unstyled">
+                    <h6 class="mb-3">{{ i18n.t('learningSession.cameraPermission.why') }}</h6>
+                    <ul class="list-unstyled text-start">
                         <li class="mb-2">
-                            <i class="bi bi-check-circle-fill text-success me-2"></i>
-                            Detect your emotions to adapt content in real-time
+                            <i class="bi bi-check-circle text-success me-2"></i>
+                            {{ i18n.t('learningSession.cameraPermission.reason1') }}
                         </li>
                         <li class="mb-2">
-                            <i class="bi bi-check-circle-fill text-success me-2"></i>
-                            Provide personalized learning experience
+                            <i class="bi bi-check-circle text-success me-2"></i>
+                            {{ i18n.t('learningSession.cameraPermission.reason2') }}
                         </li>
                         <li class="mb-2">
-                            <i class="bi bi-check-circle-fill text-success me-2"></i>
-                            Help you learn more effectively
+                            <i class="bi bi-check-circle text-success me-2"></i>
+                            {{ i18n.t('learningSession.cameraPermission.reason3') }}
                         </li>
                     </ul>
                     <div class="alert alert-info mt-3">
-                        <i class="bi bi-info-circle-fill me-2"></i>
-                        <strong>Privacy Protected:</strong> No video is recorded or stored. All processing happens
-                        locally.
+                        <i class="bi bi-shield-check me-2"></i>
+                        {{ i18n.t('learningSession.cameraPermission.privacy') }}
                     </div>
                 </div>
-                <div class="modal-footer border-0">
-                    <button type="button" class="btn btn-secondary" (click)="denyCamera()">
-                        Not Now
+                <div class="modal-footer border-0 justify-content-center">
+                    <button type="button" class="btn btn-secondary" (click)="router.navigate(['/dashboard'])">
+                        {{ i18n.t('learningSession.cameraPermission.notNow') }}
                     </button>
                     <button type="button" class="btn btn-primary" (click)="startLearningSession()">
-                        <i class="bi bi-camera-fill me-2"></i>Allow Camera
+                        <i class="bi bi-camera-video me-2"></i>
+                        {{ i18n.t('learningSession.cameraPermission.allow') }}
                     </button>
                 </div>
             </div>
@@ -50,159 +47,204 @@
 
     <!-- Loading State -->
     @if (isLoading) {
-    <div class="container py-5">
+    <div class="loading-container">
         <app-loading-spinner></app-loading-spinner>
+        <p class="mt-3">{{ i18n.t('learningSession.loading') }}</p>
     </div>
     }
 
-    <!-- Main Learning Interface -->
-    @if (!isLoading && lesson && isCameraActive) {
-    <div class="learning-interface">
-        <!-- Top Bar -->
-        <div class="top-bar bg-white shadow-sm py-3">
+    <!-- Main Learning Session -->
+    @if (!isLoading && lesson && lesson.curriculum) {
+    <div class="session-container">
+        <!-- Header with Progress -->
+        <div class="session-header">
             <div class="container-fluid">
                 <div class="row align-items-center">
-                    <div class="col-md-6">
-                        <h5 class="mb-0 fw-bold">{{ lesson.title }}</h5>
+                    <div class="col-md-8">
+                        <h5 class="mb-1">{{ currentTopic?.title || lesson.title }}</h5>
                         <small class="text-muted">
-                            Block {{ getCurrentBlockNumber() }} of {{ getTotalBlocks() }}
+                            {{ i18n.t('learningSession.topic') }} {{ getCurrentTopicNumber() }}
                         </small>
                     </div>
-                    <div class="col-md-6 text-end">
-                        <button class="btn btn-sm btn-outline-danger" (click)="exitLesson()">
-                            <i class="bi bi-x-circle me-1"></i>Exit
-                        </button>
+                    <div class="col-md-4 text-end">
+                        <!-- Emotion Indicator -->
+                        @if (currentEmotion) {
+                        <app-emotion-indicator [emotion]="currentEmotion.state"></app-emotion-indicator>
+                        }
                     </div>
                 </div>
                 <!-- Progress Bar -->
                 <div class="progress mt-3" style="height: 6px;">
-                    <div class="progress-bar bg-success" role="progressbar" [style.width.%]="getProgressPercentage()"
+                    <div class="progress-bar bg-primary" role="progressbar" [style.width.%]="getProgressPercentage()"
                         [attr.aria-valuenow]="getProgressPercentage()" aria-valuemin="0" aria-valuemax="100">
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="container-fluid py-4">
-            <div class="row g-4">
-                <!-- Main Content Area -->
-                <div class="col-lg-8">
-                    <div class="content-area card shadow-sm border-0 p-4">
-                        @if (currentBlock) {
-                        <div class="content-block" [class.fade-in]="true">
-                            <!-- Content Title -->
-                            <h3 class="fw-bold mb-4">{{ currentBlock.content.title }}</h3>
+        <!-- Chat Messages Area -->
+        <div class="messages-area" #messagesContainer>
+            <div class="container">
+                @for (message of sessionHistory; track message.id) {
+                <div class="message-wrapper"
+                    [class.ai-message]="message.type === 'ai' || message.type === 'question' || message.type === 'encouragement'"
+                    [class.user-message]="message.type === 'user'" [class.system-message]="message.type === 'system'">
 
-                            <!-- Text Content -->
-                            @if (currentBlock.type === 'text') {
-                            <div class="text-content">
-                                <p class="lead">{{ currentBlock.content.body }}</p>
-                            </div>
+                    <!-- AI/Question/Encouragement Messages -->
+                    @if (message.type === 'ai' || message.type === 'question' || message.type === 'encouragement') {
+                    <div class="message ai">
+                        <div class="message-avatar">
+                            @if (message.type === 'question') {
+                            <i class="bi bi-question-circle"></i>
+                            } @else if (message.type === 'encouragement') {
+                            <i class="bi bi-star-fill"></i>
+                            } @else {
+                            <i class="bi bi-robot"></i>
                             }
-
-                            <!-- Visual Content -->
-                            @if (currentBlock.type === 'visual') {
-                            <div class="visual-content">
-                                <p class="lead mb-4">{{ currentBlock.content.body }}</p>
-                                @if (currentBlock.content.imageUrl) {
-                                <img [src]="currentBlock.content.imageUrl" class="img-fluid rounded shadow-sm"
-                                    [alt]="currentBlock.content.title">
+                        </div>
+                        <div class="message-content">
+                            <div class="message-bubble">
+                                {{ message.content }}
+                                @if (message.adapted) {
+                                <div class="adaptation-badge">
+                                    <i class="bi bi-lightning-fill me-1"></i>
+                                    {{ i18n.t('learningSession.adapted') }}
+                                </div>
                                 }
                             </div>
+                            @if (message.timestamp) {
+                            <small class="message-time">{{ message.timestamp | date:'shortTime' }}</small>
                             }
-
-                            <!-- Interactive Content -->
-                            @if (currentBlock.type === 'interactive') {
-                            <div class="interactive-content">
-                                <div class="alert alert-primary">
-                                    <i class="bi bi-joystick fs-3 mb-3 d-block"></i>
-                                    <h5 class="fw-bold">{{ currentBlock.content.title }}</h5>
-                                    <p>{{ currentBlock.content.body }}</p>
-                                </div>
-                            </div>
-                            }
-
-                            <!-- Navigation Buttons -->
-                            <div class="content-navigation mt-5 d-flex justify-content-between">
-                                <button class="btn btn-outline-secondary" (click)="previousBlock()"
-                                    [disabled]="getCurrentBlockNumber() === 1">
-                                    <i class="bi bi-arrow-left me-2"></i>Previous
-                                </button>
-                                <button class="btn btn-primary" (click)="nextBlock()">
-                                    @if (getCurrentBlockNumber() === getTotalBlocks()) {
-                                    Complete <i class="bi bi-check-circle ms-2"></i>
-                                    } @else {
-                                    Next <i class="bi bi-arrow-right ms-2"></i>
-                                    }
-                                </button>
-                            </div>
                         </div>
-                        }
-                    </div>
-                </div>
-
-                <!-- Sidebar -->
-                <div class="col-lg-4">
-                    <!-- Camera Status -->
-                    <div class="card shadow-sm border-0 mb-3">
-                        <div class="card-body">
-                            <h6 class="fw-bold mb-3">
-                                <i class="bi bi-camera-video-fill me-2"></i>Camera Status
-                            </h6>
-                            <div class="d-flex align-items-center">
-                                <div class="status-indicator bg-success me-2"></div>
-                                <span class="text-success fw-bold">Active</span>
-                            </div>
-                            <small class="text-muted d-block mt-2">
-                                <i class="bi bi-shield-check me-1"></i>Privacy protected
-                            </small>
-                        </div>
-                    </div>
-
-                    <!-- Hidden Video Element for Camera Capture -->
-                    <video #videoElement autoplay playsinline muted style="display: none;"></video>
-
-                    <!-- Current Emotion -->
-                    @if (currentEmotion) {
-                    <div class="mb-3">
-                        <h6 class="fw-bold mb-3">Current Emotion</h6>
-                        <app-emotion-indicator [emotion]="currentEmotion.state"
-                            [confidence]="currentEmotion.confidence">
-                        </app-emotion-indicator>
                     </div>
                     }
 
-                    <!-- Adaptation History -->
-                    <div class="card shadow-sm border-0">
-                        <div class="card-body">
-                            <h6 class="fw-bold mb-3">
-                                <i class="bi bi-clock-history me-2"></i>Adaptation History
-                            </h6>
-                            @if (adaptationHistory.length > 0) {
-                            <div class="adaptation-timeline">
-                                @for (event of adaptationHistory.slice().reverse(); track event.id) {
-                                <div class="timeline-item mb-3">
-                                    <div class="d-flex">
-                                        <div class="timeline-marker me-2"></div>
-                                        <div class="flex-grow-1">
-                                            <small class="text-muted">{{ formatTimestamp(event.timestamp) }}</small>
-                                            <p class="mb-0 small">{{ event.description }}</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                }
-                            </div>
-                            } @else {
-                            <p class="text-muted small mb-0">
-                                <i class="bi bi-info-circle me-1"></i>
-                                Content will adapt based on your emotions
-                            </p>
-                            }
+                    <!-- System Messages -->
+                    @if (message.type === 'system') {
+                    <div class="message system">
+                        <div class="system-message-content">
+                            <i class="bi bi-info-circle me-2"></i>
+                            {{ message.content }}
                         </div>
                     </div>
+                    }
+                </div>
+                }
+
+                <!-- Loading more topics indicator -->
+                @if (isGeneratingMoreTopics) {
+                <div class="message-wrapper ai-message">
+                    <div class="message ai">
+                        <div class="message-avatar">
+                            <i class="bi bi-robot"></i>
+                        </div>
+                        <div class="message-content">
+                            <div class="message-bubble">
+                                <div class="typing-indicator">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                }
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="session-actions">
+            <div class="container">
+                @if (!isWaitingForContinue && !showCompletionModal) {
+                <!-- Continue Button -->
+                <button class="btn btn-primary btn-lg w-100" (click)="showNextMessage()">
+                    <i class="bi bi-arrow-right-circle me-2"></i>
+                    {{ i18n.t('common.continue') }}
+                </button>
+                }
+
+                @if (isWaitingForContinue) {
+                <!-- Continue or Finish Options -->
+                <div class="continue-options">
+                    <h6 class="text-center mb-3">{{ i18n.t('learningSession.continueOrFinish.title') }}</h6>
+                    <p class="text-center text-muted mb-4">
+                        {{ i18n.t('learningSession.continueOrFinish.subtitle') }}
+                    </p>
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <button class="btn btn-outline-primary btn-lg w-100" (click)="continueWithMoreTopics()"
+                                [disabled]="isGeneratingMoreTopics">
+                                <i class="bi bi-plus-circle me-2"></i>
+                                {{ i18n.t('learningSession.continueOrFinish.continue') }}
+                            </button>
+                        </div>
+                        <div class="col-md-6">
+                            <button class="btn btn-success btn-lg w-100" (click)="finishLesson()">
+                                <i class="bi bi-check-circle me-2"></i>
+                                {{ i18n.t('learningSession.continueOrFinish.finish') }}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                }
+            </div>
+        </div>
+    </div>
+    }
+
+    <!-- Completion Modal -->
+    @if (showCompletionModal) {
+    <div class="modal show d-block" tabindex="-1" style="background: rgba(0,0,0,0.5);">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title">
+                        <i class="bi bi-trophy-fill text-warning me-2"></i>
+                        {{ i18n.t('learningSession.completion.title') }}
+                    </h5>
+                </div>
+                <div class="modal-body text-center">
+                    <div class="completion-icon mb-4">
+                        <i class="bi bi-check-circle-fill display-1 text-success"></i>
+                    </div>
+                    <h4 class="mb-3">{{ i18n.t('learningSession.completion.congrats') }}</h4>
+                    <p class="text-muted">
+                        {{ i18n.t('learningSession.completion.message') }}
+                    </p>
+                    @if (lesson) {
+                    <div class="lesson-stats mt-4">
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="stat-card">
+                                    <i class="bi bi-book text-primary"></i>
+                                    <h5>{{ lesson.curriculum?.totalTopics || 0 }}</h5>
+                                    <small>{{ i18n.t('learningSession.completion.topicsCompleted') }}</small>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="stat-card">
+                                    <i class="bi bi-clock text-info"></i>
+                                    <h5>{{ lesson.estimatedMinutes }}</h5>
+                                    <small>{{ i18n.t('learningSession.completion.minutes') }}</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    }
+                </div>
+                <div class="modal-footer border-0 justify-content-center">
+                    <button type="button" class="btn btn-primary btn-lg" (click)="goToDashboard()">
+                        <i class="bi bi-house me-2"></i>
+                        {{ i18n.t('learningSession.completion.goToDashboard') }}
+                    </button>
                 </div>
             </div>
         </div>
     </div>
     }
+
+    <!-- Hidden Video Element for Camera (Always present) -->
+    <video #videoElement autoplay playsinline muted class="camera-feed"
+        [style.display]="isCameraActive ? 'block' : 'none'"></video>
 </div>
