@@ -8,145 +8,219 @@
         "save": "Guardar",
         "delete": "Eliminar",
         "edit": "Editar",
-        "close": "Cerrar"
+        "close": "Cerrar",
+        "start": "Comenzar",
+        "continue": "Continuar"
     },
     "nav": {
         "home": "Inicio",
         "dashboard": "Panel",
-        "lessons": "Historial de Aprendizaje",
+        "history": "Historial",
         "createLesson": "Crear Lección",
-        "settings": "Configuración"
+        "lessons": "Lecciones"
     },
     "home": {
         "hero": {
             "title": "Aprende Mejor con",
-            "titleHighlight": "IA y",
-            "titleEnd": "Detección de Emociones",
-            "subtitle": "KAIROS adapta tu experiencia de aprendizaje en tiempo real según tus emociones. ¿Confundido? Te mostramos visuales. ¿Aburrido? ¡Hagámoslo interactivo!",
+            "aiPowered": "IA Potenciada",
+            "subtitle": "Detección de Emociones",
+            "description": "KAIROS adapta tu experiencia de aprendizaje en tiempo real según tus emociones. ¿Confundido? Te mostramos visuales. ¿Aburrido? ¡Lo hacemos interactivo!",
             "createLesson": "Crear Lección",
-            "browseLessons": "Ver Historial"
+            "browseLessons": "Explorar Lecciones",
+            "visualization": "Visualización de Aprendizaje Adaptativo"
         },
         "features": {
             "title": "¿Por Qué Elegir KAIROS?",
-            "subtitle": "Revolucionando la educación con IA consciente de emociones"
+            "subtitle": "Revolucionando la educación con IA consciente de emociones",
+            "emotionDetection": {
+                "title": "Detección de Emociones en Tiempo Real",
+                "description": "IA avanzada analiza tus expresiones faciales para entender tu estado de aprendizaje"
+            },
+            "adaptiveContent": {
+                "title": "Adaptación Instantánea de Contenido",
+                "description": "El contenido se ajusta automáticamente según tu estado emocional para un aprendizaje óptimo"
+            },
+            "privacyFirst": {
+                "title": "Privacidad Primero",
+                "description": "Todo el procesamiento ocurre localmente. Ningún dato de video se almacena o transmite"
+            },
+            "personalizedPaths": {
+                "title": "Aprendizaje Personalizado",
+                "description": "Cada lección se adapta a tu estilo y ritmo de aprendizaje único"
+            }
         },
         "howItWorks": {
             "title": "Cómo Funciona",
-            "subtitle": "Comienza en 4 simples pasos"
+            "subtitle": "Comienza en 4 simples pasos",
+            "step1": {
+                "title": "Elige Tu Lección",
+                "description": "Selecciona de nuestra biblioteca de lecciones interactivas"
+            },
+            "step2": {
+                "title": "Permite Acceso a la Cámara",
+                "description": "Permite la cámara para detección de emociones (privacidad protegida)"
+            },
+            "step3": {
+                "title": "Comienza a Aprender",
+                "description": "Inicia tu viaje de aprendizaje adaptativo"
+            },
+            "step4": {
+                "title": "El Contenido se Adapta",
+                "description": "Observa cómo el contenido cambia según tus emociones"
+            }
         },
         "cta": {
-            "title": "¿Listo para Transformar tu Aprendizaje?",
+            "title": "¿Listo para Transformar Tu Aprendizaje?",
             "subtitle": "Únete a miles de estudiantes aprendiendo mejor con KAIROS",
             "button": "Comenzar Ahora"
         }
     },
     "lessonCreator": {
-        "title": "Crea tu Lección Personalizada",
+        "title": "Crea Tu Lección Personalizada",
         "subtitle": "Dinos qué quieres aprender y nuestra IA creará una lección personalizada para ti",
         "topic": {
             "label": "¿Qué quieres aprender?",
-            "placeholder": "ej., Física Cuántica, Aprendizaje Automático, Roma Antigua..."
+            "placeholder": "ej., Física Cuántica, Aprendizaje Automático, Roma Antigua...",
+            "examples": "O prueba uno de estos:"
         },
-        "examples": "O prueba uno de estos:",
+        "examples": {
+            "quantumPhysics": "Física Cuántica",
+            "machineLearning": "Aprendizaje Automático",
+            "ancientRome": "Roma Antigua",
+            "climateChange": "Cambio Climático"
+        },
         "level": {
-            "label": "Tu Nivel",
+            "label": "Nivel de Dificultad",
             "beginner": "Principiante",
-            "beginnerDesc": "Nuevo en este tema",
             "intermediate": "Intermedio",
-            "intermediateDesc": "Algo de conocimiento",
             "advanced": "Avanzado",
-            "advancedDesc": "Comprensión profunda"
+            "beginnerDesc": "Nuevo en este tema",
+            "intermediateDesc": "Algo de conocimiento",
+            "advancedDesc": "Profundización"
         },
-        "style": {
+        "learningStyle": {
             "label": "Estilo de Aprendizaje",
             "visual": "Visual",
-            "visualDesc": "Diagramas e imágenes",
             "textual": "Textual",
-            "textualDesc": "Explicaciones escritas",
             "interactive": "Interactivo",
-            "interactiveDesc": "Práctica práctica",
             "mixed": "Mixto",
-            "mixedDesc": "Enfoque equilibrado"
+            "visualDesc": "Diagramas e imágenes",
+            "textualDesc": "Lectura y escritura",
+            "interactiveDesc": "Práctica hands-on",
+            "mixedDesc": "Lo mejor de todo"
         },
         "age": {
             "label": "Edad",
-            "optional": "Opcional",
             "placeholder": "Para contenido apropiado a la edad"
         },
         "alias": {
             "label": "Tu Nombre/Alias",
-            "optional": "Opcional",
             "placeholder": "¿Cómo deberíamos llamarte?",
             "hint": "Usaremos esto para personalizar tu experiencia de aprendizaje"
         },
-        "generate": "Generar Lección",
-        "generating": "Generando tu Lección...",
-        "footer": "Impulsado por Gemini 3 Pro - Tu lección se generará en tiempo real y se adaptará a tus emociones mientras aprendes",
-        "errors": {
-            "topicRequired": "Por favor ingresa un tema que quieras aprender",
-            "generationFailed": "Error al generar la lección. Por favor intenta de nuevo."
-        }
+        "generateButton": "Generar Mi Lección",
+        "generating": "Creando tu lección personalizada...",
+        "error": "Error al generar la lección. Por favor intenta de nuevo."
     },
-    "learningSession": {
-        "loading": "Cargando lección...",
-        "start": "Comenzar a Aprender",
-        "stop": "Detener Sesión",
-        "next": "Siguiente Bloque",
-        "previous": "Bloque Anterior",
-        "complete": "Completar Lección",
-        "cameraPermission": "Se requiere permiso de cámara para detección de emociones",
-        "grantPermission": "Conceder Permiso",
-        "emotion": {
-            "engaged": "Comprometido",
-            "confused": "Confundido",
-            "bored": "Aburrido",
-            "neutral": "Neutral",
-            "frustrated": "Frustrado"
+    "dashboard": {
+        "title": "Tu Panel de Aprendizaje",
+        "welcome": "Bienvenido de nuevo",
+        "stats": {
+            "totalLessons": "Lecciones Totales",
+            "hoursLearned": "Horas Aprendidas",
+            "avgEngagement": "Compromiso Promedio",
+            "completionRate": "Tasa de Completitud"
         },
-        "greeting": {
-            "hello": "Hola",
-            "welcome": "Bienvenido de nuevo",
-            "letsStart": "¡Comencemos a aprender!"
+        "recentSessions": {
+            "title": "Sesiones de Aprendizaje Recientes",
+            "noSessions": "Aún no hay sesiones. ¡Comienza a aprender!",
+            "viewAll": "Ver Todas las Sesiones"
         },
-        "adaptation": {
-            "confused": "Veo que estás confundido. Déjame explicarlo de otra manera.",
-            "bored": "Pareces aburrido. ¡Hagamos esto más interesante!",
-            "frustrated": "No te preocupes, lo lograremos juntos."
-        }
-    },
-    "history": {
-        "title": "Tu Historial de Aprendizaje",
-        "empty": "Aún no hay sesiones de aprendizaje. ¡Crea tu primera lección!",
-        "session": {
-            "duration": "Duración",
-            "completed": "Completado",
-            "inProgress": "En Progreso",
-            "minutes": "min",
-            "retake": "Repetir Lección"
-        },
-        "analytics": {
-            "title": "Análisis de Emociones",
+        "emotionInsights": {
+            "title": "Insights de Emociones",
             "engaged": "Comprometido",
             "confused": "Confundido",
             "bored": "Aburrido",
             "neutral": "Neutral"
         }
     },
-    "dashboard": {
-        "welcome": "Bienvenido",
-        "stats": {
-            "totalLessons": "Lecciones Totales",
-            "hoursLearned": "Horas Aprendidas",
-            "avgEngagement": "Compromiso Promedio",
-            "completion": "Tasa de Finalización"
-        }
+    "footer": {
+        "tagline": "Educación con IA adaptativa que te entiende. Aprende a tu propio ritmo con contenido personalizado.",
+        "quickLinks": "Enlaces Rápidos",
+        "aboutUs": "Sobre Nosotros",
+        "howItWorks": "Cómo Funciona",
+        "privacy": "Política de Privacidad",
+        "ethics": "Declaración de Ética",
+        "connect": "Conectar",
+        "copyright": "© 2026 KAIROS. Construido para Hackathon.",
+        "privacyNote": "Tu privacidad es nuestra prioridad - no se almacena video."
     },
-    "settings": {
-        "title": "Configuración",
-        "language": "Idioma",
-        "alias": "Tu Nombre/Alias",
-        "aliasPlaceholder": "¿Cómo deberíamos llamarte?",
-        "theme": "Tema",
-        "notifications": "Notificaciones"
+    "learningSession": {
+        "loading": "Cargando tu lección...",
+        "topic": "Tema",
+        "adapted": "Adaptado",
+        "cameraPermission": {
+            "title": "Permiso de Cámara Requerido",
+            "why": "¿Por qué necesitamos acceso a la cámara?",
+            "reason1": "Detectar tus emociones para adaptar el contenido en tiempo real",
+            "reason2": "Proveer una experiencia de aprendizaje personalizada",
+            "reason3": "Ayudarte a aprender más efectivamente",
+            "privacy": "Privacidad Protegida: No se graba ni almacena video. Todo el procesamiento es local.",
+            "notNow": "Ahora No",
+            "allow": "Permitir Cámara"
+        },
+        "continueOrFinish": {
+            "title": "¡Excelente Progreso!",
+            "subtitle": "Has completado todos los temas actuales. ¿Qué te gustaría hacer?",
+            "continue": "Continuar Aprendiendo",
+            "finish": "Finalizar Lección"
+        },
+        "completion": {
+            "title": "¡Lección Completada!",
+            "congrats": "¡Felicitaciones!",
+            "message": "Has completado exitosamente esta lección. ¡Excelente trabajo!",
+            "topicsCompleted": "Temas",
+            "minutes": "Minutos",
+            "goToDashboard": "Ir al Dashboard"
+        },
+        "modal": {
+            "title": "Permiso de Cámara Requerido",
+            "accessRequired": "¿Por qué necesitamos acceso a la cámara?",
+            "reason1": "Detectar tus emociones para adaptar el contenido en tiempo real",
+            "reason2": "Proveer una experiencia de aprendizaje personalizada",
+            "reason3": "Ayudarte a aprender más efectivamente",
+            "privacy": "Privacidad Protegida: No se graba ni almacena video. Todo el procesamiento es local.",
+            "notNow": "Ahora No",
+            "allow": "Permitir Cámara"
+        },
+        "cameraStatus": "Estado de Cámara",
+        "active": "Activo",
+        "privacyProtected": "Privacidad protegida",
+        "currentEmotion": "Emoción Actual",
+        "adaptationHistory": "Historial de Adaptación",
+        "exit": "Salir",
+        "previous": "Anterior",
+        "next": "Siguiente",
+        "complete": "Completar",
+        "block": "Bloque",
+        "of": "de",
+        "contentWillAdapt": "El contenido se adaptará según tus emociones"
+    },
+    "lessonSelection": {
+        "title": "Elige Tu Camino de Aprendizaje",
+        "subtitle": "Selecciona una lección y comienza tu viaje de aprendizaje adaptativo",
+        "searchPlaceholder": "Buscar lecciones...",
+        "allSubjects": "Todos los Temas",
+        "allLevels": "Todos los Niveles",
+        "clear": "Limpiar",
+        "showing": "Mostrando",
+        "of": "de",
+        "lessons": "lecciones",
+        "noResults": "No se encontraron lecciones",
+        "tryAdjusting": "Intenta ajustar tus filtros o término de búsqueda",
+        "emptyHistory": "Tu Historial de Aprendizaje está Vacío",
+        "createFirst": "¡Genera tu primera lección potenciada por IA para comenzar!",
+        "createButton": "Crear Lección",
+        "clearFilters": "Limpiar Filtros"
     }
 }

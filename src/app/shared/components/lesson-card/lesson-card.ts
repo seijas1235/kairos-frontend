@@ -1,7 +1,8 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { Lesson } from '../../../core/models/lesson.model';
+import { I18nService } from '../../../core/services/i18n';
 
 @Component({
   selector: 'app-lesson-card',
@@ -11,6 +12,7 @@ import { Lesson } from '../../../core/models/lesson.model';
 })
 export class LessonCard {
   @Input() lesson!: Lesson;
+  i18n = inject(I18nService);
 
   getDifficultyBadgeClass(difficulty: string): string {
     const classes: Record<string, string> = {

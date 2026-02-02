@@ -2,30 +2,34 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6 mb-3 mb-md-0">
-                <h5 class="fw-bold mb-3">
-                    <i class="bi bi-mortarboard-fill me-2"></i>KAIROS
+                <h5 class="fw-bold mb-3 text-white">
+                    <i class="bi bi-mortarboard-fill me-2"></i>{{ i18n.t('common.appName') }}
                 </h5>
-                <p class="text-muted">
-                    Adaptive AI education that understands you. Learn at your own pace with personalized content.
+                <p class="text-light opacity-75">
+                    {{ i18n.t('footer.tagline') }}
                 </p>
             </div>
 
             <div class="col-md-3 mb-3 mb-md-0">
-                <h6 class="fw-bold mb-3">Quick Links</h6>
+                <h6 class="fw-bold mb-3 text-white">{{ i18n.t('footer.quickLinks') }}</h6>
                 <ul class="list-unstyled">
-                    <li><a href="#" class="text-muted text-decoration-none">About Us</a></li>
-                    <li><a href="#" class="text-muted text-decoration-none">How It Works</a></li>
-                    <li><a href="#" class="text-muted text-decoration-none">Privacy Policy</a></li>
-                    <li><a href="#" class="text-muted text-decoration-none">Ethics Statement</a></li>
+                    <li><a href="#" class="text-light opacity-75 text-decoration-none hover-opacity-100">{{
+                            i18n.t('footer.aboutUs') }}</a></li>
+                    <li><a href="#" class="text-light opacity-75 text-decoration-none hover-opacity-100">{{
+                            i18n.t('footer.howItWorks') }}</a></li>
+                    <li><a href="#" class="text-light opacity-75 text-decoration-none hover-opacity-100">{{
+                            i18n.t('footer.privacy') }}</a></li>
+                    <li><a href="#" class="text-light opacity-75 text-decoration-none hover-opacity-100">{{
+                            i18n.t('footer.ethics') }}</a></li>
                 </ul>
             </div>
 
             <div class="col-md-3">
-                <h6 class="fw-bold mb-3">Connect</h6>
+                <h6 class="fw-bold mb-3 text-white">{{ i18n.t('footer.connect') }}</h6>
                 <div class="d-flex gap-3">
-                    <a href="#" class="text-muted fs-4"><i class="bi bi-github"></i></a>
-                    <a href="#" class="text-muted fs-4"><i class="bi bi-twitter"></i></a>
-                    <a href="#" class="text-muted fs-4"><i class="bi bi-linkedin"></i></a>
+                    <a href="#" class="text-light opacity-75 fs-4 hover-opacity-100"><i class="bi bi-github"></i></a>
+                    <a href="#" class="text-light opacity-75 fs-4 hover-opacity-100"><i class="bi bi-twitter"></i></a>
+                    <a href="#" class="text-light opacity-75 fs-4 hover-opacity-100"><i class="bi bi-linkedin"></i></a>
                 </div>
             </div>
         </div>
@@ -33,10 +37,10 @@
         <hr class="my-4 border-secondary">
 
         <div class="row">
-            <div class="col-12 text-center text-muted small">
+            <div class="col-12 text-center text-light opacity-75 small">
                 <p class="mb-0">
-                    © 2026 KAIROS. Built for Hackathon.
-                    <i class="bi bi-shield-check ms-2"></i> Your privacy is our priority - no video data is stored.
+                    {{ i18n.t('footer.copyright') }}
+                    <i class="bi bi-shield-check ms-2"></i> {{ i18n.t('footer.privacyNote') }}
                 </p>
             </div>
         </div>

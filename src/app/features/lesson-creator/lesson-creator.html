@@ -2,8 +2,8 @@
     <div class="creator-card">
         <!-- Header -->
         <div class="header">
-            <h1>🎓 Create Your Personalized Lesson</h1>
-            <p>Tell us what you want to learn, and our AI will create a custom lesson just for you</p>
+            <h1>{{ i18n.t('lessonCreator.title') }}</h1>
+            <p>{{ i18n.t('lessonCreator.subtitle') }}</p>
         </div>
 
         <!-- Main Form -->
@@ -13,32 +13,32 @@
             <div class="form-group">
                 <label for="topic">
                     <span class="label-icon">💡</span>
-                    What do you want to learn?
+                    {{ i18n.t('lessonCreator.topic.label') }}
                 </label>
                 <input type="text" id="topic" [(ngModel)]="topic" name="topic"
-                    placeholder="e.g., Quantum Physics, Machine Learning, Ancient Rome..." class="topic-input"
+                    [placeholder]="i18n.t('lessonCreator.topic.placeholder')" class="topic-input"
                     [disabled]="isGenerating()" required />
             </div>
 
             <!-- Example Topics -->
             <div class="example-topics">
-                <p class="example-label">Or try one of these:</p>
+                <p class="example-label">{{ i18n.t('lessonCreator.topic.examples') }}</p>
                 <div class="example-grid">
-                    @for (example of exampleTopics; track example.topic) {
+                    @for (example of exampleTopics; track example.key) {
                     <button type="button" class="example-chip" (click)="selectExample(example)"
                         [disabled]="isGenerating()">
                         <span class="chip-icon">{{ example.icon }}</span>
-                        <span class="chip-text">{{ example.topic }}</span>
+                        <span>{{ i18n.t('lessonCreator.examples.' + example.key) }}</span>
                     </button>
                     }
                 </div>
             </div>
 
-            <!-- Level Selection -->
+            <!-- Difficulty Level -->
             <div class="form-group">
                 <label>
                     <span class="label-icon">📊</span>
-                    Your Level
+                    {{ i18n.t('lessonCreator.level.label') }}
                 </label>
                 <div class="option-grid">
                     @for (lvl of levels; track lvl.value) {
@@ -46,28 +46,28 @@
                         (click)="level.set(lvl.value)" [disabled]="isGenerating()">
                         <span class="option-icon">{{ lvl.icon }}</span>
                         <div class="option-content">
-                            <h3>{{ lvl.label }}</h3>
-                            <p>{{ lvl.description }}</p>
+                            <h3>{{ i18n.t('lessonCreator.level.' + lvl.value) }}</h3>
+                            <p>{{ i18n.t('lessonCreator.level.' + lvl.value + 'Desc') }}</p>
                         </div>
                     </button>
                     }
                 </div>
             </div>
 
-            <!-- Learning Style Selection -->
+            <!-- Learning Style -->
             <div class="form-group">
                 <label>
                     <span class="label-icon">🎨</span>
-                    Learning Style
+                    {{ i18n.t('lessonCreator.learningStyle.label') }}
                 </label>
                 <div class="option-grid">
-                    @for (style of styles; track style.value) {
+                    @for (style of learningStyles; track style.value) {
                     <button type="button" class="option-card" [class.selected]="learningStyle() === style.value"
                         (click)="learningStyle.set(style.value)" [disabled]="isGenerating()">
                         <span class="option-icon">{{ style.icon }}</span>
                         <div class="option-content">
-                            <h3>{{ style.label }}</h3>
-                            <p>{{ style.description }}</p>
+                            <h3>{{ i18n.t('lessonCreator.learningStyle.' + style.value) }}</h3>
+                            <p>{{ i18n.t('lessonCreator.learningStyle.' + style.value + 'Desc') }}</p>
                         </div>
                     </button>
                     }
@@ -76,36 +76,43 @@
 
             <!-- Optional Age -->
             <div class="form-group">
-                <label for="age">Age <span class="optional">(Optional)</span></label>
-                <input type="number" id="age" [(ngModel)]="age" name="age" placeholder="For age-appropriate content"
-                    min="5" max="100" [disabled]="isGenerating()" />
+                <label for="age">
+                    <span class="label-icon">👤</span>
+                    {{ i18n.t('lessonCreator.age.label') }}
+                    <span class="optional-badge">{{ i18n.t('common.optional') || 'Optional' }}</span>
+                </label>
+                <input type="number" id="age" [(ngModel)]="age" name="age"
+                    [placeholder]="i18n.t('lessonCreator.age.placeholder')" class="age-input" min="5" max="100"
+                    [disabled]="isGenerating()" />
             </div>
 
             <!-- Alias (Optional) -->
             <div class="form-group">
-                <label for="alias">Your Name/Alias <span class="optional">(Optional)</span></label>
-                <input type="text" id="alias" [(ngModel)]="alias" name="alias" placeholder="How should we call you?"
-                    maxlength="50" [disabled]="isGenerating()" />
-                <small class="hint">💡 We'll use this to personalize your learning experience</small>
+                <label for="alias">{{ i18n.t('lessonCreator.alias.label') }} <span class="optional">({{
+                        i18n.t('common.optional') || 'Optional' }})</span></label>
+                <input type="text" id="alias" [(ngModel)]="alias" name="alias"
+                    [placeholder]="i18n.t('lessonCreator.alias.placeholder')" maxlength="50"
+                    [disabled]="isGenerating()" />
+                <small class="hint">{{ i18n.t('lessonCreator.alias.hint') }}</small>
             </div>
 
             <!-- Error Message -->
             @if (error()) {
             <div class="error-message">
                 <span class="error-icon">⚠️</span>
-                {{ error() }}
+                <span>{{ error() }}</span>
             </div>
             }
 
-            <!-- Submit Button -->
-            <button type="submit" class="generate-button" [disabled]="isGenerating() || !topic().trim()"
-                [class.loading]="isGenerating()">
+            <!-- Generate Button -->
+            <button type="submit" class="generate-button" [class.loading]="isGenerating()"
+                [disabled]="!topic() || isGenerating()">
                 @if (isGenerating()) {
                 <span class="spinner"></span>
-                <span>Generating Your Lesson...</span>
+                <span>{{ i18n.t('lessonCreator.generating') }}</span>
                 } @else {
                 <span class="button-icon">✨</span>
-                <span>Generate Lesson</span>
+                <span>{{ i18n.t('lessonCreator.generateButton') }}</span>
                 }
             </button>
         </form>
@@ -113,8 +120,8 @@
         <!-- Info Footer -->
         <div class="info-footer">
             <p>
-                <strong>🤖 Powered by Gemini 3 Pro</strong> -
-                Your lesson will be generated in real-time and adapted to your emotions as you learn
+                <strong>💡 {{ i18n.t('common.tip') || 'Tip' }}:</strong> {{ i18n.t('lessonCreator.tip') || 'The more
+                specific your topic, the better your personalized lesson will be!' }}
             </p>
         </div>
     </div>

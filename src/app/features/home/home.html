@@ -5,25 +5,25 @@
             <div class="row align-items-center">
                 <div class="col-lg-6 mb-4 mb-lg-0">
                     <h1 class="display-3 fw-bold mb-4 animate__animated animate__fadeInUp">
-                        Learn Smarter with <span class="text-gradient">AI-Powered</span> Emotion Detection
+                        {{ i18n.t('home.hero.title') }} <span class="text-white bg-primary px-2 rounded">{{
+                            i18n.t('home.hero.aiPowered') }}</span> {{ i18n.t('home.hero.subtitle') }}
                     </h1>
                     <p class="lead mb-4 animate__animated animate__fadeInUp animate__delay-1s">
-                        KAIROS adapts your learning experience in real-time based on your emotions.
-                        Confused? We'll show you visuals. Bored? Let's make it interactive!
+                        {{ i18n.t('home.hero.description') }}
                     </p>
                     <div class="d-flex gap-3 animate__animated animate__fadeInUp animate__delay-2s">
                         <a routerLink="/create-lesson" class="btn btn-light btn-lg px-4">
-                            <i class="bi bi-magic me-2"></i>Create Lesson
+                            <i class="bi bi-magic me-2"></i>{{ i18n.t('home.hero.createLesson') }}
                         </a>
                         <a routerLink="/lessons" class="btn btn-outline-light btn-lg px-4">
-                            <i class="bi bi-rocket-fill me-2"></i>Browse Lessons
+                            <i class="bi bi-rocket-fill me-2"></i>{{ i18n.t('home.hero.browseLessons') }}
                         </a>
                     </div>
                 </div>
                 <div class="col-lg-6">
                     <div class="hero-image-placeholder glassmorphism p-5 text-center">
                         <i class="bi bi-mortarboard-fill display-1"></i>
-                        <p class="mt-3">Adaptive Learning Visualization</p>
+                        <p class="mt-3">{{ i18n.t('home.hero.visualization') }}</p>
                     </div>
                 </div>
             </div>
@@ -34,18 +34,18 @@
     <section class="features-section py-5 bg-light">
         <div class="container py-5">
             <div class="text-center mb-5">
-                <h2 class="display-5 fw-bold mb-3">Why Choose KAIROS?</h2>
-                <p class="lead text-muted">Revolutionizing education with emotion-aware AI</p>
+                <h2 class="display-5 fw-bold mb-3">{{ i18n.t('home.features.title') }}</h2>
+                <p class="lead text-muted">{{ i18n.t('home.features.subtitle') }}</p>
             </div>
             <div class="row g-4">
-                @for (feature of features; track feature.title) {
+                @for (feature of features; track feature.icon) {
                 <div class="col-md-6 col-lg-3">
                     <div class="card h-100 border-0 shadow-sm card-hover text-center p-4">
                         <div class="feature-icon text-primary mb-3">
                             <i [class]="'bi ' + feature.icon + ' fs-1'"></i>
                         </div>
-                        <h5 class="fw-bold mb-2">{{ feature.title }}</h5>
-                        <p class="text-muted small">{{ feature.description }}</p>
+                        <h5 class="fw-bold mb-2">{{ i18n.t('home.features.' + feature.key + '.title') }}</h5>
+                        <p class="text-muted small">{{ i18n.t('home.features.' + feature.key + '.description') }}</p>
                     </div>
                 </div>
                 }
@@ -54,22 +54,23 @@
     </section>
 
     <!-- How It Works Section -->
-    <section id="how-it-works" class="how-it-works-section py-5">
+    <section class="how-it-works-section py-5">
         <div class="container py-5">
             <div class="text-center mb-5">
-                <h2 class="display-5 fw-bold mb-3">How It Works</h2>
-                <p class="lead text-muted">Get started in 4 simple steps</p>
+                <h2 class="display-5 fw-bold mb-3">{{ i18n.t('home.howItWorks.title') }}</h2>
+                <p class="lead text-muted">{{ i18n.t('home.howItWorks.subtitle') }}</p>
             </div>
             <div class="row g-4">
                 @for (step of howItWorks; track step.step) {
                 <div class="col-md-6 col-lg-3">
                     <div class="step-card text-center">
                         <div class="step-number mb-3">{{ step.step }}</div>
-                        <div class="step-icon text-primary mb-3">
-                            <i [class]="'bi ' + step.icon + ' fs-2'"></i>
+                        <div class="step-icon mb-3">
+                            <i [class]="'bi ' + step.icon + ' fs-1 text-primary'"></i>
                         </div>
-                        <h5 class="fw-bold mb-2">{{ step.title }}</h5>
-                        <p class="text-muted small">{{ step.description }}</p>
+                        <h5 class="fw-bold mb-2">{{ i18n.t('home.howItWorks.step' + step.step + '.title') }}</h5>
+                        <p class="text-muted small">{{ i18n.t('home.howItWorks.step' + step.step + '.description') }}
+                        </p>
                     </div>
                 </div>
                 }
@@ -77,51 +78,13 @@
         </div>
     </section>
 
-    <!-- Privacy Section -->
-    <section class="privacy-section py-5 bg-light">
-        <div class="container py-5">
-            <div class="row align-items-center">
-                <div class="col-lg-6 mb-4 mb-lg-0">
-                    <h2 class="display-6 fw-bold mb-4">Your Privacy is Our Priority</h2>
-                    <div class="d-flex align-items-start mb-3">
-                        <i class="bi bi-shield-check-fill text-success fs-3 me-3"></i>
-                        <div>
-                            <h5 class="fw-bold">No Video Storage</h5>
-                            <p class="text-muted">Your camera feed is never recorded or saved</p>
-                        </div>
-                    </div>
-                    <div class="d-flex align-items-start mb-3">
-                        <i class="bi bi-lock-fill text-success fs-3 me-3"></i>
-                        <div>
-                            <h5 class="fw-bold">Local Processing</h5>
-                            <p class="text-muted">All emotion detection happens on your device</p>
-                        </div>
-                    </div>
-                    <div class="d-flex align-items-start">
-                        <i class="bi bi-eye-slash-fill text-success fs-3 me-3"></i>
-                        <div>
-                            <h5 class="fw-bold">Full Control</h5>
-                            <p class="text-muted">You can pause or stop emotion detection anytime</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="privacy-image-placeholder glassmorphism p-5 text-center">
-                        <i class="bi bi-shield-fill-check display-1 text-success"></i>
-                        <p class="mt-3 fw-bold">Privacy Protected</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- CTA Section -->
-    <section class="cta-section py-5 text-white">
+    <section class="cta-section bg-gradient text-white py-5">
         <div class="container py-5 text-center">
-            <h2 class="display-4 fw-bold mb-4">Ready to Transform Your Learning?</h2>
-            <p class="lead mb-4">Join thousands of students learning smarter with KAIROS</p>
-            <a routerLink="/lessons" class="btn btn-light btn-lg px-5">
-                <i class="bi bi-rocket-takeoff-fill me-2"></i>Get Started Now
+            <h2 class="display-4 fw-bold mb-3">{{ i18n.t('home.cta.title') }}</h2>
+            <p class="lead mb-4">{{ i18n.t('home.cta.subtitle') }}</p>
+            <a routerLink="/create-lesson" class="btn btn-light btn-lg px-5">
+                <i class="bi bi-rocket-fill me-2"></i>{{ i18n.t('home.cta.button') }}
             </a>
         </div>
     </section>

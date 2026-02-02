@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LessonService } from '../../core/services/lesson';
+import { I18nService } from '../../core/services/i18n';
 import { Lesson } from '../../core/models/lesson.model';
 import { LessonCard } from '../../shared/components/lesson-card/lesson-card';
 import { LoadingSpinner } from '../../shared/components/loading-spinner/loading-spinner';
@@ -22,7 +23,10 @@ export class LessonSelection implements OnInit {
   subjects: string[] = [];
   difficulties = ['beginner', 'intermediate', 'advanced'];
 
-  constructor(private lessonService: LessonService) { }
+  constructor(
+    private lessonService: LessonService,
+    public i18n: I18nService
+  ) { }
 
   ngOnInit(): void {
     this.loadLessons();

@@ -4,37 +4,37 @@
       <i class="bi bi-mortarboard-fill me-2 fs-4"></i>
       <span class="fw-bold">KAIROS</span>
     </a>
-    
-    <button 
-      class="navbar-toggler" 
-      type="button" 
-      (click)="toggleMenu()"
-      [attr.aria-expanded]="isMenuOpen"
+
+    <button class="navbar-toggler" type="button" (click)="toggleMenu()" [attr.aria-expanded]="isMenuOpen"
       aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    
+
     <div class="collapse navbar-collapse" [class.show]="isMenuOpen" id="navbarNav">
-      <ul class="navbar-nav ms-auto">
+      <ul class="navbar-nav ms-auto align-items-center">
         <li class="nav-item">
-          <a class="nav-link" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="closeMenu()">
-            <i class="bi bi-house-fill me-1"></i> Home
+          <a class="nav-link" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
+            (click)="closeMenu()">
+            <i class="bi bi-house-fill me-1"></i> {{ i18n.t('nav.home') }}
           </a>
         </li>
         <li class="nav-item">
           <a class="nav-link" routerLink="/lessons" routerLinkActive="active" (click)="closeMenu()">
-            <i class="bi bi-book-fill me-1"></i> Lessons
+            <i class="bi bi-book-fill me-1"></i> {{ i18n.t('nav.history') }}
           </a>
         </li>
         <li class="nav-item">
           <a class="nav-link" routerLink="/dashboard" routerLinkActive="active" (click)="closeMenu()">
-            <i class="bi bi-speedometer2 me-1"></i> Dashboard
+            <i class="bi bi-speedometer2 me-1"></i> {{ i18n.t('nav.dashboard') }}
           </a>
         </li>
         <li class="nav-item">
-          <a class="btn btn-primary ms-lg-2 mt-2 mt-lg-0" routerLink="/lessons" (click)="closeMenu()">
-            <i class="bi bi-play-circle-fill me-1"></i> Start Learning
+          <a class="btn btn-primary ms-lg-2 mt-2 mt-lg-0" routerLink="/create-lesson" (click)="closeMenu()">
+            <i class="bi bi-plus-circle-fill me-1"></i> {{ i18n.t('nav.createLesson') }}
           </a>
+        </li>
+        <li class="nav-item ms-lg-3 mt-2 mt-lg-0">
+          <app-language-selector></app-language-selector>
         </li>
       </ul>
     </div>

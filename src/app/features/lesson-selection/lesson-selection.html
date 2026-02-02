@@ -1,8 +1,8 @@
 <div class="lesson-selection-page">
     <div class="page-header py-5 bg-gradient text-white">
         <div class="container">
-            <h1 class="display-4 fw-bold mb-3">Choose Your Learning Path</h1>
-            <p class="lead">Select a lesson and start your adaptive learning journey</p>
+            <h1 class="display-4 fw-bold mb-3 text-white">{{ i18n.t('lessonSelection.title') }}</h1>
+            <p class="lead text-white">{{ i18n.t('lessonSelection.subtitle') }}</p>
         </div>
     </div>
 
@@ -16,7 +16,8 @@
                         <span class="input-group-text bg-white">
                             <i class="bi bi-search"></i>
                         </span>
-                        <input type="text" class="form-control" placeholder="Search lessons..." [value]="searchTerm"
+                        <input type="text" class="form-control"
+                            [placeholder]="i18n.t('lessonSelection.searchPlaceholder')" [value]="searchTerm"
                             (input)="onSearchChange($event)">
                     </div>
                 </div>
@@ -25,7 +26,7 @@
                 <div class="col-md-3">
                     <select class="form-select" [value]="selectedSubject"
                         (change)="onSubjectChange($any($event.target).value)">
-                        <option value="all">All Subjects</option>
+                        <option value="all">{{ i18n.t('lessonSelection.allSubjects') }}</option>
                         @for (subject of subjects; track subject) {
                         <option [value]="subject">{{ subject }}</option>
                         }
@@ -36,7 +37,7 @@
                 <div class="col-md-3">
                     <select class="form-select" [value]="selectedDifficulty"
                         (change)="onDifficultyChange($any($event.target).value)">
-                        <option value="all">All Levels</option>
+                        <option value="all">{{ i18n.t('lessonSelection.allLevels') }}</option>
                         @for (difficulty of difficulties; track difficulty) {
                         <option [value]="difficulty">{{ difficulty | titlecase }}</option>
                         }
@@ -46,7 +47,7 @@
                 <!-- Clear Filters -->
                 <div class="col-md-2">
                     <button class="btn btn-outline-secondary w-100" (click)="clearFilters()">
-                        <i class="bi bi-x-circle me-1"></i>Clear
+                        <i class="bi bi-x-circle me-1"></i>{{ i18n.t('lessonSelection.clear') }}
                     </button>
                 </div>
             </div>
@@ -56,7 +57,9 @@
         <div class="results-info mb-4">
             <p class="text-muted">
                 <i class="bi bi-funnel-fill me-2"></i>
-                Showing <strong>{{ filteredLessons.length }}</strong> of <strong>{{ lessons.length }}</strong> lessons
+                {{ i18n.t('lessonSelection.showing') }} <strong>{{ filteredLessons.length }}</strong> {{
+                i18n.t('lessonSelection.of') }} <strong>{{ lessons.length }}</strong> {{
+                i18n.t('lessonSelection.lessons') }}
             </p>
         </div>
 
@@ -76,15 +79,27 @@
         </div>
         }
 
-        <!-- No Results -->
-        @if (!isLoading && filteredLessons.length === 0) {
+        <!-- No Results (Filtered) -->
+        @if (!isLoading && filteredLessons.length === 0 && lessons.length > 0) {
         <div class="no-results text-center py-5">
             <i class="bi bi-search display-1 text-muted mb-3"></i>
-            <h4 class="text-muted">No lessons found</h4>
-            <p class="text-muted">Try adjusting your filters or search term</p>
+            <h4 class="text-muted">{{ i18n.t('lessonSelection.noResults') }}</h4>
+            <p class="text-muted">{{ i18n.t('lessonSelection.tryAdjusting') }}</p>
             <button class="btn btn-primary mt-3" (click)="clearFilters()">
-                Clear Filters
+                {{ i18n.t('lessonSelection.clearFilters') }}
             </button>
+        </div>
+        }
+
+        <!-- No Lessons (Empty History) -->
+        @if (!isLoading && lessons.length === 0) {
+        <div class="no-results text-center py-5">
+            <i class="bi bi-journal-album display-1 text-muted mb-3"></i>
+            <h4 class="text-muted">{{ i18n.t('lessonSelection.emptyHistory') }}</h4>
+            <p class="text-muted">{{ i18n.t('lessonSelection.createFirst') }}</p>
+            <a routerLink="/create-lesson" class="btn btn-primary mt-3 btn-lg">
+                <i class="bi bi-magic me-2"></i>{{ i18n.t('lessonSelection.createButton') }}
+            </a>
         </div>
         }
     </div>

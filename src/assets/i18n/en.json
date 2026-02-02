@@ -8,31 +8,66 @@
         "save": "Save",
         "delete": "Delete",
         "edit": "Edit",
-        "close": "Close"
+        "close": "Close",
+        "start": "Start",
+        "continue": "Continue"
     },
     "nav": {
         "home": "Home",
         "dashboard": "Dashboard",
-        "lessons": "Learning History",
+        "history": "History",
         "createLesson": "Create Lesson",
-        "settings": "Settings"
+        "lessons": "Lessons"
     },
     "home": {
         "hero": {
             "title": "Learn Smarter with",
-            "titleHighlight": "AI-Powered",
-            "titleEnd": "Emotion Detection",
-            "subtitle": "KAIROS adapts your learning experience in real-time based on your emotions. Confused? We'll show you visuals. Bored? Let's make it interactive!",
+            "aiPowered": "AI-Powered",
+            "subtitle": "Emotion Detection",
+            "description": "KAIROS adapts your learning experience in real-time based on your emotions. Confused? We'll show you visuals. Bored? Let's make it interactive!",
             "createLesson": "Create Lesson",
-            "browseLessons": "Browse Lessons"
+            "browseLessons": "Browse Lessons",
+            "visualization": "Adaptive Learning Visualization"
         },
         "features": {
             "title": "Why Choose KAIROS?",
-            "subtitle": "Revolutionizing education with emotion-aware AI"
+            "subtitle": "Revolutionizing education with emotion-aware AI",
+            "emotionDetection": {
+                "title": "Real-Time Emotion Detection",
+                "description": "Advanced AI analyzes your facial expressions to understand your learning state"
+            },
+            "adaptiveContent": {
+                "title": "Instant Content Adaptation",
+                "description": "Content automatically adjusts based on your emotional state for optimal learning"
+            },
+            "privacyFirst": {
+                "title": "Privacy First",
+                "description": "All processing happens locally. No video data is ever stored or transmitted"
+            },
+            "personalizedPaths": {
+                "title": "Personalized Learning",
+                "description": "Each lesson adapts to your unique learning style and pace"
+            }
         },
         "howItWorks": {
             "title": "How It Works",
-            "subtitle": "Get started in 4 simple steps"
+            "subtitle": "Get started in 4 simple steps",
+            "step1": {
+                "title": "Choose Your Lesson",
+                "description": "Select from our library of interactive lessons"
+            },
+            "step2": {
+                "title": "Grant Camera Access",
+                "description": "Allow camera for emotion detection (privacy protected)"
+            },
+            "step3": {
+                "title": "Start Learning",
+                "description": "Begin your adaptive learning journey"
+            },
+            "step4": {
+                "title": "Content Adapts",
+                "description": "Watch as content changes based on your emotions"
+            }
         },
         "cta": {
             "title": "Ready to Transform Your Learning?",
@@ -45,108 +80,147 @@
         "subtitle": "Tell us what you want to learn, and our AI will create a custom lesson just for you",
         "topic": {
             "label": "What do you want to learn?",
-            "placeholder": "e.g., Quantum Physics, Machine Learning, Ancient Rome..."
+            "placeholder": "e.g., Quantum Physics, Machine Learning, Ancient Rome...",
+            "examples": "Or try one of these:"
         },
-        "examples": "Or try one of these:",
+        "examples": {
+            "quantumPhysics": "Quantum Physics",
+            "machineLearning": "Machine Learning",
+            "ancientRome": "Ancient Rome",
+            "climateChange": "Climate Change"
+        },
         "level": {
-            "label": "Your Level",
+            "label": "Difficulty Level",
             "beginner": "Beginner",
-            "beginnerDesc": "New to this topic",
             "intermediate": "Intermediate",
-            "intermediateDesc": "Some knowledge",
             "advanced": "Advanced",
-            "advancedDesc": "Deep understanding"
+            "beginnerDesc": "New to this topic",
+            "intermediateDesc": "Some knowledge",
+            "advancedDesc": "Deep dive"
         },
-        "style": {
+        "learningStyle": {
             "label": "Learning Style",
             "visual": "Visual",
-            "visualDesc": "Diagrams and images",
             "textual": "Textual",
-            "textualDesc": "Written explanations",
             "interactive": "Interactive",
-            "interactiveDesc": "Hands-on practice",
             "mixed": "Mixed",
-            "mixedDesc": "Balanced approach"
+            "visualDesc": "Diagrams & images",
+            "textualDesc": "Reading & writing",
+            "interactiveDesc": "Hands-on practice",
+            "mixedDesc": "Best of all"
         },
         "age": {
             "label": "Age",
-            "optional": "Optional",
             "placeholder": "For age-appropriate content"
         },
         "alias": {
             "label": "Your Name/Alias",
-            "optional": "Optional",
             "placeholder": "How should we call you?",
             "hint": "We'll use this to personalize your learning experience"
         },
-        "generate": "Generate Lesson",
-        "generating": "Generating Your Lesson...",
-        "footer": "Powered by Gemini 3 Pro - Your lesson will be generated in real-time and adapted to your emotions as you learn",
-        "errors": {
-            "topicRequired": "Please enter a topic you want to learn",
-            "generationFailed": "Failed to generate lesson. Please try again."
-        }
+        "generateButton": "Generate My Lesson",
+        "generating": "Creating your personalized lesson...",
+        "error": "Failed to generate lesson. Please try again."
     },
-    "learningSession": {
-        "loading": "Loading lesson...",
-        "start": "Start Learning",
-        "stop": "Stop Session",
-        "next": "Next Block",
-        "previous": "Previous Block",
-        "complete": "Complete Lesson",
-        "cameraPermission": "Camera permission required for emotion detection",
-        "grantPermission": "Grant Permission",
-        "emotion": {
-            "engaged": "Engaged",
-            "confused": "Confused",
-            "bored": "Bored",
-            "neutral": "Neutral",
-            "frustrated": "Frustrated"
+    "dashboard": {
+        "title": "Your Learning Dashboard",
+        "welcome": "Welcome back",
+        "stats": {
+            "totalLessons": "Total Lessons",
+            "hoursLearned": "Hours Learned",
+            "avgEngagement": "Avg Engagement",
+            "completionRate": "Completion Rate"
         },
-        "greeting": {
-            "hello": "Hello",
-            "welcome": "Welcome back",
-            "letsStart": "Let's start learning!"
+        "recentSessions": {
+            "title": "Recent Learning Sessions",
+            "noSessions": "No sessions yet. Start learning!",
+            "viewAll": "View All Sessions"
         },
-        "adaptation": {
-            "confused": "I see you're confused. Let me explain this differently.",
-            "bored": "You seem bored. Let's make this more interesting!",
-            "frustrated": "Don't worry, we'll get through this together."
-        }
-    },
-    "history": {
-        "title": "Your Learning History",
-        "empty": "No learning sessions yet. Create your first lesson!",
-        "session": {
-            "duration": "Duration",
-            "completed": "Completed",
-            "inProgress": "In Progress",
-            "minutes": "min",
-            "retake": "Retake Lesson"
-        },
-        "analytics": {
-            "title": "Emotion Analytics",
+        "emotionInsights": {
+            "title": "Emotion Insights",
             "engaged": "Engaged",
             "confused": "Confused",
             "bored": "Bored",
             "neutral": "Neutral"
         }
     },
-    "dashboard": {
-        "welcome": "Welcome",
-        "stats": {
-            "totalLessons": "Total Lessons",
-            "hoursLearned": "Hours Learned",
-            "avgEngagement": "Avg Engagement",
-            "completion": "Completion Rate"
-        }
+    "footer": {
+        "tagline": "Adaptive AI education that understands you. Learn at your own pace with personalized content.",
+        "quickLinks": "Quick Links",
+        "aboutUs": "About Us",
+        "howItWorks": "How It Works",
+        "privacy": "Privacy Policy",
+        "ethics": "Ethics Statement",
+        "connect": "Connect",
+        "copyright": "© 2026 KAIROS. Built for Hackathon.",
+        "privacyNote": "Your privacy is our priority - no video data is stored."
     },
-    "settings": {
-        "title": "Settings",
-        "language": "Language",
-        "alias": "Your Name/Alias",
-        "aliasPlaceholder": "How should we call you?",
-        "theme": "Theme",
-        "notifications": "Notifications"
+    "learningSession": {
+        "loading": "Loading your lesson...",
+        "topic": "Topic",
+        "adapted": "Adapted",
+        "cameraPermission": {
+            "title": "Camera Permission Required",
+            "why": "Why do we need camera access?",
+            "reason1": "Detect your emotions to adapt content in real-time",
+            "reason2": "Provide personalized learning experience",
+            "reason3": "Help you learn more effectively",
+            "privacy": "Privacy Protected: No video is recorded or stored. All processing happens locally.",
+            "notNow": "Not Now",
+            "allow": "Allow Camera"
+        },
+        "continueOrFinish": {
+            "title": "Great Progress!",
+            "subtitle": "You've completed all current topics. What would you like to do?",
+            "continue": "Continue Learning",
+            "finish": "Finish Lesson"
+        },
+        "completion": {
+            "title": "Lesson Complete!",
+            "congrats": "Congratulations!",
+            "message": "You've successfully completed this lesson. Great job!",
+            "topicsCompleted": "Topics",
+            "minutes": "Minutes",
+            "goToDashboard": "Go to Dashboard"
+        },
+        "modal": {
+            "title": "Camera Permission Required",
+            "accessRequired": "Why do we need camera access?",
+            "reason1": "Detect your emotions to adapt content in real-time",
+            "reason2": "Provide personalized learning experience",
+            "reason3": "Help you learn more effectively",
+            "privacy": "Privacy Protected: No video is recorded or stored. All processing happens locally.",
+            "notNow": "Not Now",
+            "allow": "Allow Camera"
+        },
+        "cameraStatus": "Camera Status",
+        "active": "Active",
+        "privacyProtected": "Privacy protected",
+        "currentEmotion": "Current Emotion",
+        "adaptationHistory": "Adaptation History",
+        "exit": "Exit",
+        "previous": "Previous",
+        "next": "Next",
+        "complete": "Complete",
+        "block": "Block",
+        "of": "of",
+        "contentWillAdapt": "Content will adapt based on your emotions"
+    },
+    "lessonSelection": {
+        "title": "Choose Your Learning Path",
+        "subtitle": "Select a lesson and start your adaptive learning journey",
+        "searchPlaceholder": "Search lessons...",
+        "allSubjects": "All Subjects",
+        "allLevels": "All Levels",
+        "clear": "Clear",
+        "showing": "Showing",
+        "of": "of",
+        "lessons": "lessons",
+        "noResults": "No lessons found",
+        "tryAdjusting": "Try adjusting your filters or search term",
+        "emptyHistory": "Your Learning History is Empty",
+        "createFirst": "Generate your first AI-powered lesson to get started!",
+        "createButton": "Create Lesson",
+        "clearFilters": "Clear Filters"
     }
 }
