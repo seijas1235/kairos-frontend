@@ -46,19 +46,19 @@ export class CameraService {
         isActive: false
       });
 
-      console.log('Camera permission granted');
+      console.log('✅ Permiso de cámara concedido');
       return true;
 
     } catch (error: any) {
-      console.error('Camera permission error:', error);
+      console.error('❌ Error de permiso de cámara:', error);
 
-      let errorMessage = 'Permission denied';
+      let errorMessage = 'Permiso denegado';
       if (error.name === 'NotAllowedError') {
-        errorMessage = 'Camera access denied by user';
+        errorMessage = 'Acceso a cámara denegado por el usuario';
       } else if (error.name === 'NotFoundError') {
-        errorMessage = 'No camera found';
+        errorMessage = 'No se encontró cámara';
       } else if (error.name === 'NotReadableError') {
-        errorMessage = 'Camera is already in use';
+        errorMessage = 'La cámara ya está en uso';
       }
 
       this.cameraStatusSubject.next({
@@ -95,7 +95,7 @@ export class CameraService {
       isActive: true
     });
 
-    console.log('Camera started');
+    console.log('✅ Cámara iniciada correctamente');
   }
 
   // Stop camera
@@ -116,7 +116,7 @@ export class CameraService {
       isActive: false
     });
 
-    console.log('Camera stopped');
+    console.log('🛑 Cámara detenida');
   }
 
   // Capture frame from video element
@@ -140,7 +140,7 @@ export class CameraService {
       return base64Image.split(',')[1];
 
     } catch (error) {
-      console.error('Error capturing frame:', error);
+      console.error('❌ Error capturando frame:', error);
       return null;
     }
   }

@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LessonService } from '../../core/services/lesson';
+import { RealTimeService } from '../../core/services/real-time.service';
 import { UserPreferencesService } from '../../core/services/user-preferences';
 import { I18nService } from '../../core/services/i18n';
 
@@ -15,6 +16,7 @@ import { I18nService } from '../../core/services/i18n';
 })
 export class LessonCreator {
     private lessonService = inject(LessonService);
+    private realTimeService = inject(RealTimeService);
     private router = inject(Router);
     private userPrefs = inject(UserPreferencesService);
     i18n = inject(I18nService);
@@ -84,27 +86,30 @@ export class LessonCreator {
                 this.userPrefs.setAlias(this.alias().trim());
             }
 
-            // Call lesson service to generate lesson with new curriculum structure
-            const requestParams = {
+            // Call RealTimeService to start session directly
+            const formData = {
                 topic: this.topic(),
-                level: this.level(),
-                learningStyle: this.learningStyle(),
-                age: this.age() || undefined,
-                alias: this.alias().trim() || undefined,
-                language: this.i18n.currentLang() // Include current language
+                level: this.level(), // Note: Backend expects 'difficulty' mapped from this
+                difficulty: this.level(),
+                style: this.learningStyle(),
+                alias: this.alias().trim(),
+                language: this.i18n.currentLang()
             };
 
-            console.log('Generating lesson with params (INCLUDING LANGUAGE):', requestParams);
+            // Connect if not already (Service handles check)
+            this.realTimeService.connect();
 
-            const lesson = await this.lessonService.generateLesson(requestParams);
+            // Send start_lesson payload
+            this.realTimeService.startSession(formData);
 
-            console.log('Lesson generated with curriculum:', lesson);
+            // Generate a temporary session ID for routing
+            const tempLessonId = 'session-' + Date.now();
 
-            // Navigate to learning session with generated lesson
-            this.router.navigate(['/lesson', lesson.id]);
+            // Navigate to learning session
+            this.router.navigate(['/lesson', tempLessonId]);
 
         } catch (error: any) {
-            console.error('Error generating lesson:', error);
+            console.error('Error starting session:', error);
             this.error.set(error.message || this.i18n.t('lessonCreator.error'));
         } finally {
             this.isGenerating.set(false);

@@ -27,9 +27,9 @@ export class Dashboard implements OnInit {
       next: (lessons) => {
         this.totalLessons = lessons.length;
         this.recentLessons = lessons.slice(0, 3);
-        // Mock data for demo
-        this.completedLessons = 2;
-        this.learningStreak = 5;
+        // Data from local service only
+        this.completedLessons = lessons.filter(l => l.progress === 100).length;
+        // Streak calculation would need real history logic, defaulting to 0 or handled by service
       }
     });
   }
