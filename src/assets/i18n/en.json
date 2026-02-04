@@ -157,8 +157,16 @@
     },
     "learningSession": {
         "loading": "Loading your lesson...",
+        "preparingLesson": "Preparing your adaptive lesson...",
+        "cameraActive": "Camera active",
         "topic": "Topic",
         "adapted": "Adapted",
+        "interruption": {
+            "title": "Are you lost?",
+            "message": "I noticed you might be confused. Would you like me to explain it differently?",
+            "continueBtn": "No, let's continue",
+            "explainBtn": "Yes, explain it differently"
+        },
         "cameraPermission": {
             "title": "Camera Permission Required",
             "why": "Why do we need camera access?",

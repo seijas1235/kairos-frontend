@@ -1,3 +1,6 @@
+// Import Sass modules
+@use 'sass:color';
+
 // Import Google Fonts
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@600;700;800&display=swap');
 
@@ -42,7 +45,7 @@ a {
     transition: color $transition-fast;
 
     &:hover {
-        color: darken($primary-color, 10%);
+        color: color.scale($primary-color, $lightness: -15%);
     }
 }
 
