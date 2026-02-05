@@ -39,6 +39,11 @@ testem.log
 /typings
 __screenshots__/
 
+# Build logs
+build.log
+build_out.txt
+*.log
+
 # System files
 .DS_Store
 Thumbs.db
