@@ -79,7 +79,9 @@ export class CameraService {
     if (!currentStatus.isPermissionGranted || !this.mediaStream) {
       const granted = await this.requestPermission();
       if (!granted) {
-        throw new Error('Camera permission not granted');
+        // Throw specific error message from camera status
+        const errorMsg = this.cameraStatusSubject.value.error || 'Camera permission not granted';
+        throw new Error(errorMsg);
       }
     }
 

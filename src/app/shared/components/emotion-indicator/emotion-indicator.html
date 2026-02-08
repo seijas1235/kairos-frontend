@@ -1,14 +1,19 @@
-<div class="emotion-indicator card shadow-sm border-0" [class]="'border-' + getEmotionColor(emotion)">
-    <div class="card-body text-center">
-        <div class="emotion-icon mb-2" [class]="'text-' + getEmotionColor(emotion)">
-            <i [class]="'bi ' + getEmotionIcon(emotion) + ' fs-1'"></i>
-        </div>
-        <h6 class="emotion-label fw-bold mb-1">{{ getEmotionLabel(emotion) }}</h6>
-        <div class="progress" style="height: 6px;">
-            <div class="progress-bar" [class]="'bg-' + getEmotionColor(emotion)" [style.width.%]="confidence * 100"
-                role="progressbar" [attr.aria-valuenow]="confidence * 100" aria-valuemin="0" aria-valuemax="100">
+<div class="emotion-indicator card shadow-sm border-0 animate-pulse" [class]="'border-' + getEmotionColor(emotion)">
+    <div class="card-body text-center py-2 px-3">
+        <div class="d-flex align-items-center justify-content-between">
+            <div class="emotion-icon" [class]="'text-' + getEmotionColor(emotion)">
+                <i [class]="'bi ' + getEmotionIcon(emotion) + ' fs-3'" style="line-height: 1;"></i>
             </div>
+            <div class="flex-grow-1 ms-3 text-start">
+                <h6 class="emotion-label fw-bold mb-1 text-white" style="font-size: 0.95rem;">{{ getEmotionLabel(emotion) }}</h6>
+                <div class="progress" style="height: 8px; background: rgba(255,255,255,0.2);">
+                    <div class="progress-bar" [class]="'bg-' + getEmotionColor(emotion)" [style.width.%]="confidence * 100"
+                        role="progressbar" [attr.aria-valuenow]="confidence * 100" aria-valuemin="0" aria-valuemax="100"
+                        style="transition: width 0.6s ease;">
+                    </div>
+                </div>
+            </div>
+            <small class="text-white ms-2 fw-semibold" style="min-width: 40px; text-align: right;">{{ (confidence * 100).toFixed(0) }}%</small>
         </div>
-        <small class="text-muted">{{ (confidence * 100).toFixed(0) }}% confidence</small>
     </div>
 </div>

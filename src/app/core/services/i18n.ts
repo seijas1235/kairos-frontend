@@ -16,7 +16,7 @@ export class I18nService {
         pt: {}
     };
 
-    currentLang = signal<Language>('en');
+    currentLang = signal<Language>('es'); // ✅ Español por defecto
 
     constructor() {
         // Load translations
@@ -26,6 +26,9 @@ export class I18nService {
         const savedLang = localStorage.getItem('kairos_language') as Language;
         if (savedLang && ['en', 'es', 'pt'].includes(savedLang)) {
             this.currentLang.set(savedLang);
+        } else {
+            // Si no hay idioma guardado, usar español
+            this.currentLang.set('es');
         }
 
         // Save language changes to localStorage

@@ -50,3 +50,7 @@ Thumbs.db
 
 # Exclude GitHub folder (Copilot instructions)
 .github/
+
+# Documentation drafts
+IMPLEMENTATION-ROADMAP.md
+KAIROS-VISION.md

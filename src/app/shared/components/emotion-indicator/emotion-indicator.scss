@@ -3,34 +3,59 @@
 .emotion-indicator {
     transition: all $transition-base;
     border-left: 4px solid transparent !important;
+    background: rgba(255, 255, 255, 0.95) !important;
+    backdrop-filter: blur(10px);
+    border-radius: 12px !important;
+    min-width: 280px;
+
+    &.animate-pulse {
+        animation: softPulse 3s ease-in-out infinite;
+    }
 
     &:hover {
         transform: translateY(-2px);
-        box-shadow: $shadow-lg !important;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2) !important;
     }
 
     .emotion-icon {
         transition: transform $transition-base;
 
         i {
-            animation: pulse 2s ease-in-out infinite;
+            animation: iconPulse 2s ease-in-out infinite;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
         }
     }
 
     .emotion-label {
-        color: $neutral-800;
-        font-size: 0.9rem;
+        font-size: 0.95rem;
+        letter-spacing: 0.5px;
+    }
+    
+    .progress {
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+        
+        .progress-bar {
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        }
     }
 }
 
-@keyframes pulse {
+@keyframes softPulse {
+    0%, 100% {
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+    50% {
+        box-shadow: 0 6px 20px rgba(102, 126, 234, 0.3);
+    }
+}
 
-    0%,
-    100% {
+@keyframes iconPulse {
+    0%, 100% {
         transform: scale(1);
     }
-
     50% {
-        transform: scale(1.1);
+        transform: scale(1.15);
     }
 }

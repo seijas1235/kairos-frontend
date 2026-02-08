@@ -1,6 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { EmotionState } from '../../../core/models/emotion.model';
+import { I18nService } from '../../../core/services/i18n';
 
 @Component({
   selector: 'app-emotion-indicator',
@@ -12,6 +13,7 @@ export class EmotionIndicator {
   @Input() emotion: EmotionState = EmotionState.Neutral;
   @Input() confidence: number = 0;
 
+  i18n = inject(I18nService);
   EmotionState = EmotionState;
 
   getEmotionIcon(emotion: EmotionState): string {
@@ -37,13 +39,13 @@ export class EmotionIndicator {
   }
 
   getEmotionLabel(emotion: EmotionState): string {
-    const labels: Record<EmotionState, string> = {
-      [EmotionState.Engaged]: 'Engaged',
-      [EmotionState.Confused]: 'Confused',
-      [EmotionState.Bored]: 'Bored',
-      [EmotionState.Frustrated]: 'Frustrated',
-      [EmotionState.Neutral]: 'Neutral'
+    const labelKeys: Record<EmotionState, string> = {
+      [EmotionState.Engaged]: 'emotions.engaged',
+      [EmotionState.Confused]: 'emotions.confused',
+      [EmotionState.Bored]: 'emotions.bored',
+      [EmotionState.Frustrated]: 'emotions.frustrated',
+      [EmotionState.Neutral]: 'emotions.neutral'
     };
-    return labels[emotion];
+    return this.i18n.t(labelKeys[emotion]);
   }
 }

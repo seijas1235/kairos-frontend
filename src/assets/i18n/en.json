@@ -154,8 +154,13 @@
         "connect": "Connect",
         "copyright": "© 2026 KAIROS. Built for Hackathon.",
         "privacyNote": "Your privacy is our priority - no video data is stored."
-    },
-    "learningSession": {
+    },    "emotions": {
+        "engaged": "Engaged",
+        "confused": "Confused",
+        "bored": "Bored",
+        "frustrated": "Frustrated",
+        "neutral": "Neutral"
+    },    "learningSession": {
         "loading": "Loading your lesson...",
         "preparingLesson": "Preparing your adaptive lesson...",
         "cameraActive": "Camera active",
@@ -165,8 +170,17 @@
             "title": "Are you lost?",
             "message": "I noticed you might be confused. Would you like me to explain it differently?",
             "continueBtn": "No, let's continue",
-            "explainBtn": "Yes, explain it differently"
+            "explainBtn": "Yes, explain it differently",
+            "askQuestionBtn": "Ask a question"
         },
+        "askQuestion": "Ask Question",
+        "askQuestionPlaceholder": "Type your question or doubt here... (Ctrl+Enter to send)",
+        "send": "Send",
+        "finishSession": "Finish Lesson",
+        "tutorThinking": "The tutor is thinking of the best answer...",
+        "resumeSession": "Resume Lesson",
+        "errorTitle": "Backend Error",
+        "backendNotReady": "The backend is not yet ready to handle questions. Please try again later.",
         "cameraPermission": {
             "title": "Camera Permission Required",
             "why": "Why do we need camera access?",

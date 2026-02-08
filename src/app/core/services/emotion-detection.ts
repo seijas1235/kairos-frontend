@@ -3,7 +3,7 @@ import { Observable, BehaviorSubject, interval, Subscription } from 'rxjs';
 import { EmotionDetection, EmotionState } from '../models/emotion.model';
 import { DEMO_EMOTION_SEQUENCE, getRandomEmotion } from './mock-data/mock-emotions';
 import { environment } from '../../../environments/environment';
-import { WebSocketService } from './websocket.service';
+import { RealTimeService } from './real-time.service';
 import { CameraService } from './camera';
 
 @Injectable({
@@ -27,14 +27,12 @@ export class EmotionDetectionService {
   private videoElement: HTMLVideoElement | null = null;
 
   constructor(
-    private wsService: WebSocketService,
+    private realTimeService: RealTimeService,
     private cameraService: CameraService
   ) {
-    // Listen to WebSocket messages for emotion results
-    this.wsService.messages$.subscribe(message => {
-      if (message.type === 'emotion_result') {
-        this.handleEmotionResult(message);
-      }
+    // Subscribe to emotion results from backend via RealTimeService
+    this.realTimeService.emotionResults$.subscribe(message => {
+      this.handleEmotionResult(message);
     });
   }
 
@@ -110,8 +108,9 @@ export class EmotionDetectionService {
       const frameData = this.cameraService.captureFrame(this.videoElement);
 
       if (frameData) {
-        // Send frame to backend via WebSocket
-        this.wsService.send({
+        // Send frame to backend via RealTimeService WebSocket
+        console.log('📸 [Emotion] Sending frame to backend...');
+        this.realTimeService.sendMessage({
           type: 'emotion_frame',
           frame: frameData,
           timestamp: new Date().toISOString(),
@@ -120,6 +119,8 @@ export class EmotionDetectionService {
           topic: this.getCurrentTopic(),
           difficulty: 'intermediate'
         });
+      } else {
+        console.warn('⚠️ [Emotion] No frame captured from video element');
       }
     });
   }

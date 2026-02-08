@@ -6,7 +6,7 @@ import { catchError, retry } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 
 export interface MessageChunk {
-    type: 'text' | 'image_prompt' | 'error';
+    type: 'text' | 'image_prompt' | 'error' | 'user_question' | 'tutor_answer';
     content: string;
 }
 
@@ -32,11 +32,15 @@ export class RealTimeService {
     // Subjects for different data streams
     private lessonContentSubject = new Subject<MessageChunk[]>();
     private emotionEventSubject = new Subject<any>();
+    private emotionResultSubject = new Subject<any>(); // For emotion_result messages
     private connectionStatusSubject = new Subject<boolean>();
+    private errorSubject = new Subject<{type: string, message: string}>();
 
     public lessonStream$ = this.lessonContentSubject.asObservable();
     public emotionEvents$ = this.emotionEventSubject.asObservable();
+    public emotionResults$ = this.emotionResultSubject.asObservable(); // Expose emotion results
     public isConnected$ = this.connectionStatusSubject.asObservable();
+    public errors$ = this.errorSubject.asObservable();
 
     constructor(private router: Router) { }
 
@@ -87,8 +91,9 @@ export class RealTimeService {
             start_lesson: true,
             topic: formData.topic,
             user_alias: formData.alias || 'User',
-            difficulty: formData.difficulty || 'Intermediate',
-            style: formData.style || 'Visual',
+            difficulty: formData.difficulty || 'intermediate',
+            style: formData.style || 'mixed',
+            age: formData.age || null,
             language: formData.language || 'es'
         };
         console.log('[RealTimeService] Starting session with payload:', payload);
@@ -105,6 +110,9 @@ export class RealTimeService {
     private handleMessage(message: WebSocketMessage): void {
         console.log('[RealTimeService] Recibido:', message);
 
+        // Get message type
+        const messageType = (message as any).type;
+
         // 1. Manejar Eventos de Emoción / Interrupción
         if (message.emotion) {
             // Si la emoción indica confusión, emitir evento
@@ -113,28 +121,38 @@ export class RealTimeService {
             }
         }
 
-        // 2. Manejar Contenido de Lección (CORRECCIÓN: verificar type)
-        const messageType = (message as any).type;
+        // 2. Manejar Respuestas de Detección Emocional
+        if (messageType === 'emotion_result') {
+            console.log('🧠 [RealTimeService] Emotion result received:', message);
+            this.emotionResultSubject.next(message);
+        }
+
+        // 3. Manejar Contenido de Lección
         if (messageType === 'lesson_content' && message.content && Array.isArray(message.content)) {
             console.log('✅ [RealTimeService] Contenido de lección recibido:', message.content.length, 'chunks');
             this.lessonContentSubject.next(message.content);
         }
 
-        // 3. Manejar Learning Path (solo log, no acción)
+        // 4. Manejar Learning Path (solo log, no acción)
         if (messageType === 'learning_path') {
             console.log('📍 [RealTimeService] Learning Path recibido:', (message as any).data);
         }
 
-        // 4. Manejar Resumen de Lección (Finalización)
+        // 5. Manejar Resumen de Lección (Finalización)
         if (messageType === 'lesson_summary') {
             console.log('🏁 [RealTimeService] Resumen de lección recibido');
             localStorage.setItem('kairos_history', JSON.stringify(message));
             this.router.navigate(['/dashboard']);
         }
 
-        // 5. Manejar Errores
-        if (message.error) {
-            console.error('❌ [RealTimeService] Error del servidor:', message.error);
+        // 6. Manejar Errores
+        if (message.error || messageType === 'error') {
+            const errorMsg = message.error || (message as any).message || 'Unknown error';
+            console.error('❌ [RealTimeService] Error del servidor:', errorMsg);
+            this.errorSubject.next({
+                type: 'backend_error',
+                message: errorMsg
+            });
         }
     }
 }

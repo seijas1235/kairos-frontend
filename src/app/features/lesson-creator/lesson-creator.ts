@@ -93,6 +93,7 @@ export class LessonCreator {
                 difficulty: this.level(),
                 style: this.learningStyle(),
                 alias: this.alias().trim(),
+                age: this.age() || null,
                 language: this.i18n.currentLang()
             };
 
