@@ -2,22 +2,22 @@
 
 **AI-Powered Adaptive Learning Platform - Angular Frontend**
 
-> 🔗 **Backend Repository:** [kairos-backend](https://github.com/seijas1235/kairos-backend)
+>  **Backend Repository:** [kairos-backend](https://github.com/seijas1235/kairos-backend)
 
 KAIROS is an intelligent learning platform that adapts educational content in real-time based on student emotions and engagement levels, powered by Gemini AI.
 
 ---
 
-## ✨ Features
+## Features
 
-### 🎯 Core Functionality
+### Core Functionality
 - **Real-Time Emotion Detection** - Webcam-based facial emotion analysis
 - **Adaptive Content Delivery** - Dynamic content adjustment based on student state
 - **Interactive Learning Sessions** - Multimodal content (text, images, videos)
 - **Learning Path Visualization** - Progress tracking and topic navigation
 - **Multi-Language Support** - English, Spanish, and Portuguese (i18n)
 
-### 🎨 UI/UX
+### UI/UX
 - **Modern Design** - Clean, professional interface with KAIROS branding
 - **Responsive Layout** - Works on desktop and tablet devices
 - **Emotion Indicator** - Real-time visual feedback of student state
@@ -26,7 +26,7 @@ KAIROS is an intelligent learning platform that adapts educational content in re
 
 ---
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Prerequisites
 
@@ -56,7 +56,7 @@ KAIROS is an intelligent learning platform that adapts educational content in re
 
 ---
 
-## 🏗️ Project Structure
+## Project Structure
 
 ```
 kairos-frontend-v2/
@@ -105,7 +105,7 @@ kairos-frontend-v2/
 
 ---
 
-## 🔌 Backend Integration
+## Backend Integration
 
 ### WebSocket Connection
 
@@ -167,7 +167,7 @@ const ws = new WebSocket('ws://localhost:8000/ws/session/');
 
 ---
 
-## 🕹️ How to Use
+## How to Use
 
 ### Creating a Lesson
 
@@ -180,13 +180,13 @@ const ws = new WebSocket('ws://localhost:8000/ws/session/');
 
 Once your lesson starts, KAIROS adapts in real-time based on your emotions:
 
-#### 😕 Get Confused?
+#### Get Confused?
 - If you frown or look confused, KAIROS detects it via webcam
 - The system automatically **simplifies the explanation**
 - Content adapts with visual aids, analogies, or videos
 - Emotion indicator turns **yellow** to show confusion detected
 
-#### 😊 Stay Engaged?
+#### Stay Engaged?
 - If you smile or nod, the system recognizes comprehension
 - KAIROS **increases the depth** of content
 - More advanced concepts are introduced
@@ -210,7 +210,7 @@ Once your lesson starts, KAIROS adapts in real-time based on your emotions:
 
 ---
 
-## 🌍 Internationalization
+## Internationalization
 
 KAIROS supports multiple languages out of the box:
 
@@ -230,7 +230,7 @@ Located in `src/assets/i18n/`:
 
 ---
 
-## 🎨 Design System
+## Design System
 
 ### Color Palette
 ```scss
@@ -254,7 +254,7 @@ All components follow a consistent design language with:
 
 ---
 
-## 🧪 Development
+## Development
 
 ### Available Scripts
 
@@ -296,7 +296,7 @@ export const environment = {
 
 ---
 
-## 📦 Build & Deployment
+## Build & Deployment
 
 ### Production Build
 
@@ -331,16 +331,16 @@ COPY --from=0 /app/dist/kairos-frontend-v2/browser /usr/share/nginx/html
 
 ---
 
-## 🔐 Privacy & Security
+## Privacy & Security
 
-- ✅ **No video storage** - Camera frames processed in-memory only
-- ✅ **Client-side processing** - Emotion data sent to backend but not persisted
-- ✅ **Secure WebSocket** - WSS in production
-- ✅ **CORS configured** - Backend only accepts requests from frontend domain
+- **No video storage** - Camera frames processed in-memory only
+- **Client-side processing** - Emotion data sent to backend but not persisted
+- **Secure WebSocket** - WSS in production
+- **CORS configured** - Backend only accepts requests from frontend domain
 
 ---
 
-## 🏆 Built With
+## Built With
 
 - **Angular 21** - Modern web framework
 - **TypeScript** - Type-safe development
@@ -351,7 +351,7 @@ COPY --from=0 /app/dist/kairos-frontend-v2/browser /usr/share/nginx/html
 
 ---
 
-## 📞 Support
+## Support
 
 For issues or questions:
 1. Check [Backend Documentation](https://github.com/seijas1235/kairos-backend)
@@ -360,9 +360,9 @@ For issues or questions:
 
 ---
 
-## 🎉 Ready to Learn!
+## Ready to Learn!
 
-**Status**: ✅ Production-ready adaptive learning platform
+**Status**: Production-ready adaptive learning platform
 
 **Quick Start**:
 1. Ensure backend is running with Daphne
@@ -371,5 +371,3 @@ For issues or questions:
 4. Try the demo with topic: `EVENT HORIZON`
 
 ---
-
-**Built with ❤️ for Gemini 3 Developer Competition**
