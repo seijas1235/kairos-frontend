@@ -1,59 +1,355 @@
-# KairosFrontendV2
+# KAIROS Frontend
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.1.2.
+**AI-Powered Adaptive Learning Platform - Angular Frontend**
 
-## Development server
+> 🔗 **Backend Repository:** [kairos-backend](https://github.com/seijas1235/kairos-backend)
 
-To start a local development server, run:
+KAIROS is an intelligent learning platform that adapts educational content in real-time based on student emotions and engagement levels, powered by Gemini AI.
 
-```bash
-ng serve
+---
+
+## ✨ Features
+
+### 🎯 Core Functionality
+- **Real-Time Emotion Detection** - Webcam-based facial emotion analysis
+- **Adaptive Content Delivery** - Dynamic content adjustment based on student state
+- **Interactive Learning Sessions** - Multimodal content (text, images, videos)
+- **Learning Path Visualization** - Progress tracking and topic navigation
+- **Multi-Language Support** - English, Spanish, and Portuguese (i18n)
+
+### 🎨 UI/UX
+- **Modern Design** - Clean, professional interface with KAIROS branding
+- **Responsive Layout** - Works on desktop and tablet devices
+- **Emotion Indicator** - Real-time visual feedback of student state
+- **Dark Mode Support** - Comfortable viewing in any environment
+- **Accessibility** - WCAG compliant design patterns
+
+---
+
+## 🚀 Quick Start
+
+### Prerequisites
+
+- **Node.js** 18+ and npm
+- **Backend running** on `http://localhost:8000` ([Setup instructions](https://github.com/seijas1235/kairos-backend))
+
+### Installation
+
+1. **Clone and navigate:**
+   ```bash
+   cd c:\kairos\kairos-frontend-v2
+   ```
+
+2. **Install dependencies:**
+   ```bash
+   npm install
+   ```
+
+3. **Start development server:**
+   ```bash
+   npm start
+   ```
+
+4. **Open browser:**
+   Navigate to `http://localhost:4200`
+
+---
+
+## 🏗️ Project Structure
+
+```
+kairos-frontend-v2/
+├── src/
+│   ├── app/
+│   │   ├── core/                    # Core services and models
+│   │   │   ├── services/
+│   │   │   │   ├── real-time.service.ts      # WebSocket communication
+│   │   │   │   ├── emotion-detection.ts      # Emotion processing
+│   │   │   │   ├── camera.ts                 # Camera management
+│   │   │   │   └── i18n.ts                   # Internationalization
+│   │   │   └── models/
+│   │   │       └── emotion.model.ts          # Emotion types
+│   │   │
+│   │   ├── features/                # Feature modules
+│   │   │   ├── home/                # Landing page
+│   │   │   ├── lesson-creator/      # Create new lessons
+│   │   │   ├── learning-session/    # Active learning session
+│   │   │   └── dashboard/           # Progress dashboard
+│   │   │
+│   │   └── shared/                  # Shared components
+│   │       ├── navbar/
+│   │       ├── footer/
+│   │       └── emotion-indicator/   # Real-time emotion display
+│   │
+│   ├── assets/                      # Static assets
+│   │   ├── i18n/                    # Translation files
+│   │   │   ├── en.json
+│   │   │   ├── es.json
+│   │   │   └── pt.json
+│   │   └── demo/                    # Demo resources
+│   │
+│   ├── styles/                      # Global styles
+│   │   ├── _variables.scss          # Design tokens
+│   │   └── styles.scss              # Global CSS
+│   │
+│   └── environments/                # Environment configs
+│       ├── environment.ts           # Development
+│       └── environment.prod.ts      # Production
+│
+├── public/                          # Public assets
+│   └── favicon.svg                  # KAIROS favicon
+│
+└── package.json                     # Dependencies
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+---
 
-## Code scaffolding
+## 🔌 Backend Integration
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+### WebSocket Connection
 
-```bash
-ng generate component component-name
+The frontend connects to the backend via WebSocket for real-time communication:
+
+```typescript
+// Automatic connection on session start
+const ws = new WebSocket('ws://localhost:8000/ws/session/');
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+### Message Flow
 
-```bash
-ng generate --help
+#### 1. Starting a Lesson
+```typescript
+// Frontend sends
+{
+  "type": "start_lesson",
+  "topic": "Mathematics",
+  "difficulty": "intermediate",
+  "learning_style": "visual"
+}
+
+// Backend responds with learning path and content
+{
+  "type": "learning_path",
+  "data": { ... }
+}
 ```
 
-## Building
+#### 2. Emotion Detection
+```typescript
+// Frontend sends (every 3 seconds)
+{
+  "type": "emotion_frame",
+  "frame": "base64_encoded_image",
+  "timestamp": "2026-02-09T12:00:00Z"
+}
 
-To build the project run:
-
-```bash
-ng build
+// Backend responds
+{
+  "type": "emotion_detected",
+  "emotion": "confused",
+  "confidence": 0.85
+}
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
+#### 3. Content Delivery
+```typescript
+// Backend sends adaptive content
+{
+  "type": "lesson_content",
+  "content": [
+    { "type": "text", "content": "..." },
+    { "type": "image_prompt", "content": "..." },
+    { "type": "video_url", "content": "https://..." }
+  ]
+}
 ```
 
-## Running end-to-end tests
+---
 
-For end-to-end (e2e) testing, run:
+## 🎬 Demo Mode
 
-```bash
-ng e2e
+### EVENT_HORIZON Demo
+
+The application includes a special demo mode showcasing all features:
+
+**Trigger:** Enter `EVENT HORIZON` as the lesson topic
+
+**Demo Flow:**
+1. **Learning Path** - Astrophysics topic introduction
+2. **Dense Theory** - General Relativity concepts + space image
+3. **Emotion Detection** - Detects confusion (simulated)
+4. **Content Adaptation** - Simplified explanation + NASA video
+5. **Emotion Detection** - Detects comprehension (simulated)
+6. **Completion** - Summary and next steps
+
+**Timeline:**
+- 0-13s: Initial content presentation
+- 13s: Confusion detected → Indicator turns yellow
+- 23-35s: Adaptive content with video
+- 35s: Comprehension detected → Indicator turns green
+
+---
+
+## 🌍 Internationalization
+
+KAIROS supports multiple languages out of the box:
+
+### Available Languages
+- 🇬🇧 **English** (default)
+- 🇪🇸 **Spanish** (Español)
+- 🇧🇷 **Portuguese** (Português)
+
+### Switching Languages
+Users can change language via the navbar dropdown. All UI text updates instantly.
+
+### Translation Files
+Located in `src/assets/i18n/`:
+- `en.json` - English translations
+- `es.json` - Spanish translations
+- `pt.json` - Portuguese translations
+
+---
+
+## 🎨 Design System
+
+### Color Palette
+```scss
+$primary-color: #6366f1;    // Indigo
+$secondary-color: #8b5cf6;  // Purple
+$success-color: #10b981;    // Green
+$warning-color: #f59e0b;    // Amber
+$error-color: #ef4444;      // Red
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+### Typography
+- **Headings:** Poppins (Google Fonts)
+- **Body:** Inter (Google Fonts)
 
-## Additional Resources
+### Components
+All components follow a consistent design language with:
+- 8px spacing grid
+- Smooth transitions (250ms ease-in-out)
+- Subtle shadows and hover effects
+- Accessible color contrasts (WCAG AA)
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+---
+
+## 🧪 Development
+
+### Available Scripts
+
+```bash
+# Start development server
+npm start
+
+# Build for production
+npm run build
+
+# Run linter
+npm run lint
+
+# Run tests
+npm test
+```
+
+### Environment Configuration
+
+**Development** (`environment.ts`):
+```typescript
+export const environment = {
+  production: false,
+  wsUrl: 'ws://localhost:8000/ws/session/',
+  emotionDetectionInterval: 3000,
+  demoMode: false
+};
+```
+
+**Production** (`environment.prod.ts`):
+```typescript
+export const environment = {
+  production: true,
+  wsUrl: 'wss://your-domain.com/ws/session/',
+  emotionDetectionInterval: 3000,
+  demoMode: false
+};
+```
+
+---
+
+## 📦 Build & Deployment
+
+### Production Build
+
+```bash
+npm run build
+```
+
+Output will be in `dist/kairos-frontend-v2/browser/`
+
+### Deployment Options
+
+#### 1. Static Hosting (Netlify, Vercel)
+```bash
+# Build
+npm run build
+
+# Deploy dist folder
+netlify deploy --prod --dir=dist/kairos-frontend-v2/browser
+```
+
+#### 2. Docker
+```dockerfile
+FROM node:18-alpine
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci
+COPY . .
+RUN npm run build
+FROM nginx:alpine
+COPY --from=0 /app/dist/kairos-frontend-v2/browser /usr/share/nginx/html
+```
+
+---
+
+## 🔐 Privacy & Security
+
+- ✅ **No video storage** - Camera frames processed in-memory only
+- ✅ **Client-side processing** - Emotion data sent to backend but not persisted
+- ✅ **Secure WebSocket** - WSS in production
+- ✅ **CORS configured** - Backend only accepts requests from frontend domain
+
+---
+
+## 🏆 Built With
+
+- **Angular 21** - Modern web framework
+- **TypeScript** - Type-safe development
+- **RxJS** - Reactive programming
+- **SCSS** - Advanced styling
+- **Bootstrap Icons** - Icon library
+- **WebSocket API** - Real-time communication
+
+---
+
+## 📞 Support
+
+For issues or questions:
+1. Check [Backend Documentation](https://github.com/seijas1235/kairos-backend)
+2. Review WebSocket message contracts
+3. Test camera permissions in browser
+
+---
+
+## 🎉 Ready to Learn!
+
+**Status**: ✅ Production-ready adaptive learning platform
+
+**Quick Start**:
+1. Ensure backend is running with Daphne
+2. Run `npm start`
+3. Navigate to `http://localhost:4200`
+4. Try the demo with topic: `EVENT HORIZON`
+
+---
+
+**Built with ❤️ for Gemini 3 Developer Competition**
