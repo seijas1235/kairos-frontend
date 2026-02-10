@@ -34,6 +34,20 @@ export class EmotionDetectionService {
     this.realTimeService.emotionResults$.subscribe(message => {
       this.handleEmotionResult(message);
     });
+
+    // Subscribe to emotion_detected messages from demo script
+    this.realTimeService.emotionDetected$.subscribe(emotionData => {
+      if (emotionData && emotionData.emotion) {
+        const mappedEmotion = this.mapEmotionString(emotionData.emotion);
+        const emotion: EmotionDetection = {
+          state: mappedEmotion,
+          confidence: emotionData.confidence || 0.5,
+          timestamp: new Date()
+        };
+        this.updateEmotion(emotion);
+        console.log(`🎭 [EmotionService] Demo emotion applied: ${mappedEmotion} (${(emotion.confidence * 100).toFixed(0)}%)`);
+      }
+    });
   }
 
   // Start emotion detection

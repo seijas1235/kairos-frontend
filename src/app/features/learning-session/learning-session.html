@@ -2,10 +2,7 @@
   <!-- Encabezado Superior -->
   <header class="session-header">
     <div class="header-controls">
-      <app-emotion-indicator 
-        [emotion]="currentEmotion" 
-        [confidence]="emotionConfidence"
-      ></app-emotion-indicator>
+      <app-emotion-indicator [emotion]="currentEmotion" [confidence]="emotionConfidence"></app-emotion-indicator>
     </div>
   </header>
 
@@ -28,15 +25,26 @@
         <p>{{ chunk.content }}</p>
       </div>
 
-      <!-- Chunk Visual (Imagen) -->
+      <!-- Image Prompt Chunk (Visual) -->
       <div *ngIf="chunk.type === 'image_prompt'" class="visual-content">
         <div class="image-placeholder">
-          <div class="image-frame">
-            <img [src]="'https://placehold.co/600x400/667eea/white?text=' + encodeURIComponent(chunk.content.substring(0, 50))" 
-                 [alt]="chunk.content"
-                 class="generated-image">
+          <!-- Show actual image if image_url is provided -->
+          <div class="image-frame" *ngIf="chunk.image_url">
+            <img [src]="chunk.image_url" [alt]="chunk.content" class="generated-image">
           </div>
-          <p class="caption">📷 {{ chunk.content }}</p>
+          <!-- Show icon placeholder if no image_url -->
+          <span class="icon" *ngIf="!chunk.image_url">🖼️</span>
+          <p class="caption">{{ chunk.content }}</p>
+        </div>
+      </div>
+
+      <!-- Video Chunk (NEW for Demo Mode) -->
+      <div *ngIf="chunk.type === 'video_url'" class="video-content">
+        <div class="video-wrapper">
+          <video controls autoplay muted [src]="chunk.content" class="lesson-video"></video>
+          <p class="video-caption" *ngIf="chunk.caption">
+            <i class="bi bi-play-circle-fill"></i> {{ chunk.caption }}
+          </p>
         </div>
       </div>
 
@@ -58,36 +66,31 @@
   <!-- Vista Previa de Cámara -->
   <div class="camera-preview" [class.error]="cameraError" [class.loading]="cameraLoading">
     <!-- Video element - SIEMPRE en el DOM -->
-    <video #videoElement autoplay playsinline muted 
-           [style.display]="isCameraActive ? 'block' : 'none'">
+    <video #videoElement autoplay playsinline muted [style.display]="isCameraActive ? 'block' : 'none'">
     </video>
-    
+
     <!-- Loading state -->
     <div class="camera-loading" *ngIf="cameraLoading">
       <div class="spinner"></div>
       <p>Iniciando cámara...</p>
     </div>
-    
+
     <!-- Error state -->
     <div class="camera-error" *ngIf="cameraError && !cameraLoading">
       <span class="error-icon">⚠️</span>
       <p>{{ cameraError }}</p>
-      
+
       <!-- Retry button if camera might work -->
-      <button *ngIf="!noCameraAvailable" 
-              class="retry-btn" 
-              (click)="handleCameraPermissions()">
+      <button *ngIf="!noCameraAvailable" class="retry-btn" (click)="handleCameraPermissions()">
         🔄 Reintentar
       </button>
-      
+
       <!-- Demo mode button if no camera detected -->
-      <button *ngIf="noCameraAvailable" 
-              class="demo-btn" 
-              (click)="continueWithDemoMode()">
+      <button *ngIf="noCameraAvailable" class="demo-btn" (click)="continueWithDemoMode()">
         🎭 Continuar sin cámara (modo demo)
       </button>
     </div>
-    
+
     <!-- Camera label -->
     <div class="camera-label" *ngIf="isCameraActive">
       📹 {{ i18n.t('learningSession.cameraActive') }}
@@ -102,8 +105,10 @@
     <div class="overlay-content">
       <h2>{{ i18n.t('learningSession.interruption.title') }} 😕</h2>
       <p>{{ i18n.t('learningSession.interruption.message') }}</p>
-      <button (click)="resumeSession()" class="btn-primary">{{ i18n.t('learningSession.interruption.continueBtn') }}</button>
-      <button (click)="pauseForQuestion()" class="btn-secondary">{{ i18n.t('learningSession.interruption.askQuestionBtn') }}</button>
+      <button (click)="resumeSession()" class="btn-primary">{{ i18n.t('learningSession.interruption.continueBtn')
+        }}</button>
+      <button (click)="pauseForQuestion()" class="btn-secondary">{{
+        i18n.t('learningSession.interruption.askQuestionBtn') }}</button>
     </div>
   </div>
 
@@ -121,27 +126,16 @@
           ✓ {{ i18n.t('learningSession.finishSession') }}
         </button>
       </div>
-      <button 
-        class="toggle-btn" 
-        (click)="isInteractionBarCollapsed = !isInteractionBarCollapsed"
-      >
+      <button class="toggle-btn" (click)="isInteractionBarCollapsed = !isInteractionBarCollapsed">
         {{ isInteractionBarCollapsed ? '▲' : '▼' }}
       </button>
     </div>
 
     <div class="question-input" *ngIf="!isInteractionBarCollapsed">
-      <textarea
-        [(ngModel)]="userQuestion"
-        [placeholder]="i18n.t('learningSession.askQuestionPlaceholder')"
-        (keydown.ctrl.enter)="sendQuestion()"
-        [disabled]="waitingForAnswer"
-      ></textarea>
-      
-      <button 
-        class="send-btn"
-        (click)="sendQuestion()"
-        [disabled]="!userQuestion.trim() || waitingForAnswer"
-      >
+      <textarea [(ngModel)]="userQuestion" [placeholder]="i18n.t('learningSession.askQuestionPlaceholder')"
+        (keydown.ctrl.enter)="sendQuestion()" [disabled]="waitingForAnswer"></textarea>
+
+      <button class="send-btn" (click)="sendQuestion()" [disabled]="!userQuestion.trim() || waitingForAnswer">
         {{ waitingForAnswer ? '⏳' : '📤' }}
         {{ i18n.t('learningSession.send') }}
       </button>

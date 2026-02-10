@@ -29,13 +29,15 @@
     .emotion-label {
         font-size: 0.95rem;
         letter-spacing: 0.5px;
+        color: $neutral-800 !important; // Dark text for white background
+        font-weight: 600;
     }
-    
+
     .progress {
         border-radius: 10px;
         overflow: hidden;
         box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
-        
+
         .progress-bar {
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
         }
@@ -43,18 +45,24 @@
 }
 
 @keyframes softPulse {
-    0%, 100% {
+
+    0%,
+    100% {
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     }
+
     50% {
         box-shadow: 0 6px 20px rgba(102, 126, 234, 0.3);
     }
 }
 
 @keyframes iconPulse {
-    0%, 100% {
+
+    0%,
+    100% {
         transform: scale(1);
     }
+
     50% {
         transform: scale(1.15);
     }

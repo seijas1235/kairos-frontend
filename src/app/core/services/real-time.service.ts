@@ -1,13 +1,15 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { webSocket, WebSocketSubject } from 'rxjs/webSocket';
-import { Subject, Observable, throwError } from 'rxjs';
+import { Subject, Observable, throwError, BehaviorSubject } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 
 export interface MessageChunk {
-    type: 'text' | 'image_prompt' | 'error' | 'user_question' | 'tutor_answer';
+    type: 'text' | 'image_prompt' | 'video_url' | 'error' | 'user_question' | 'tutor_answer';
     content: string;
+    caption?: string; // For video captions
+    image_url?: string; // For image URLs
 }
 
 export interface WebSocketMessage {
@@ -33,16 +35,20 @@ export class RealTimeService {
     private lessonContentSubject = new Subject<MessageChunk[]>();
     private emotionEventSubject = new Subject<any>();
     private emotionResultSubject = new Subject<any>(); // For emotion_result messages
+    private emotionDetectedSubject = new Subject<any>(); // For emotion_detected messages from demo
     private connectionStatusSubject = new Subject<boolean>();
-    private errorSubject = new Subject<{type: string, message: string}>();
+    private errorSubject = new Subject<{ type: string, message: string }>();
 
     public lessonStream$ = this.lessonContentSubject.asObservable();
     public emotionEvents$ = this.emotionEventSubject.asObservable();
     public emotionResults$ = this.emotionResultSubject.asObservable(); // Expose emotion results
+    public emotionDetected$ = this.emotionDetectedSubject.asObservable(); // NEW: For demo emotions
     public isConnected$ = this.connectionStatusSubject.asObservable();
     public errors$ = this.errorSubject.asObservable();
 
-    constructor(private router: Router) { }
+    private router = inject(Router);
+
+    constructor() { }
 
     public connect(url: string = environment.wsUrl || 'ws://localhost:8000/ws/session/'): void {
         if (this.socket$ && !this.socket$.closed) {
@@ -108,47 +114,62 @@ export class RealTimeService {
     }
 
     private handleMessage(message: WebSocketMessage): void {
-        console.log('[RealTimeService] Recibido:', message);
+        console.log('[RealTimeService] Received:', message);
 
         // Get message type
         const messageType = (message as any).type;
 
-        // 1. Manejar Eventos de Emoción / Interrupción
+        // 1. Handle Emotion Events / Interruption
         if (message.emotion) {
-            // Si la emoción indica confusión, emitir evento
+            // If emotion indicates confusion, emit event
             if (message.emotion.action === 'interrupt' || message.emotion.emotion === 'confusion') {
                 this.emotionEventSubject.next(message.emotion);
             }
         }
 
-        // 2. Manejar Respuestas de Detección Emocional
+        // 2. Handle Emotion Detection Results (from demo or real detection)
         if (messageType === 'emotion_result') {
             console.log('🧠 [RealTimeService] Emotion result received:', message);
             this.emotionResultSubject.next(message);
         }
 
-        // 3. Manejar Contenido de Lección
+        // 🎬 NEW: Handle emotion_detected messages from demo script
+        if (messageType === 'emotion_detected') {
+            console.log('🎭 [RealTimeService] Emotion detected:', (message as any).emotion);
+            const emotionData = message as any;
+
+            // Emit emotion_detected event for EmotionDetectionService to subscribe
+            this.emotionDetectedSubject.next({
+                emotion: emotionData.emotion,
+                confidence: emotionData.confidence || 0.5,
+                message: emotionData.message
+            });
+
+            console.log(`✅ [RealTimeService] Emotion event emitted: ${emotionData.emotion} (${((emotionData.confidence || 0.5) * 100).toFixed(0)}%)`);
+        }
+
+        // 3. Handle Lesson Content
         if (messageType === 'lesson_content' && message.content && Array.isArray(message.content)) {
-            console.log('✅ [RealTimeService] Contenido de lección recibido:', message.content.length, 'chunks');
+            console.log('✅ [RealTimeService] Lesson content received:', message.content.length, 'chunks');
             this.lessonContentSubject.next(message.content);
         }
 
-        // 4. Manejar Learning Path (solo log, no acción)
+        // 4. Handle Learning Path (log only, no action)
         if (messageType === 'learning_path') {
-            console.log('📍 [RealTimeService] Learning Path recibido:', (message as any).data);
+            console.log('📍 [RealTimeService] Learning Path received:', (message as any).data);
         }
 
-        // 5. Manejar Resumen de Lección (Finalización)
+        // 5. Handle Lesson Summary (Completion)
         if (messageType === 'lesson_summary') {
-            console.log('🏁 [RealTimeService] Resumen de lección recibido');
+            console.log('🏁 [RealTimeService] Lesson summary received');
             localStorage.setItem('kairos_history', JSON.stringify(message));
             this.router.navigate(['/dashboard']);
         }
 
-        // 6. Manejar Errores
+        // 6. Handle Errors
         if (message.error || messageType === 'error') {
             const errorMsg = message.error || (message as any).message || 'Unknown error';
-            console.error('❌ [RealTimeService] Error del servidor:', errorMsg);
+            console.error('❌ [RealTimeService] Server error:', errorMsg);
             this.errorSubject.next({
                 type: 'backend_error',
                 message: errorMsg

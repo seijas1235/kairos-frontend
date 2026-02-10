@@ -2,7 +2,10 @@
 
 .dashboard-page {
     .page-header {
-        background: linear-gradient(135deg, $primary-color, $secondary-color);
+        background: linear-gradient(135deg, #4f46e5, #7c3aed); // Darker indigo to purple
+        min-height: 120px;
+        display: flex;
+        align-items: center;
     }
 
     .stat-card {

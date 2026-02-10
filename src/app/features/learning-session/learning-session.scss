@@ -16,7 +16,7 @@
         top: 0;
         z-index: 100;
         backdrop-filter: blur(10px);
-        
+
         .header-controls {
             max-width: 1200px;
             margin: 0 auto;
@@ -35,7 +35,7 @@
         align-items: center;
         gap: 2rem;
         position: relative;
-        
+
         // Layout 80% centrado
         width: 80%;
         max-width: 1200px;
@@ -45,21 +45,21 @@
         border-right: 1px solid rgba(0, 0, 0, 0.05);
         box-shadow: 0 0 30px rgba(0, 0, 0, 0.03);
         border-radius: 8px;
-        
+
         // Scrollbar personalizado
         &::-webkit-scrollbar {
             width: 12px;
         }
-        
+
         &::-webkit-scrollbar-track {
             background: #f1f5f9;
             border-radius: 6px;
         }
-        
+
         &::-webkit-scrollbar-thumb {
             background: linear-gradient(135deg, #667eea, #764ba2);
             border-radius: 6px;
-            
+
             &:hover {
                 background: linear-gradient(135deg, #5568d3, #6a3f8f);
             }
@@ -118,7 +118,7 @@
                     justify-content: center;
                     align-items: center;
                     background: white;
-                    
+
                     .generated-image {
                         width: 100%;
                         height: auto;
@@ -535,6 +535,43 @@
         }
     }
 
+    // Video Content (NEW for Demo Mode)
+    .video-content {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+
+        .video-wrapper {
+            width: 100%;
+            max-width: 700px;
+            background: #000;
+            border-radius: 1.5rem;
+            overflow: hidden;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+
+            .lesson-video {
+                width: 100%;
+                height: auto;
+                display: block;
+            }
+
+            .video-caption {
+                padding: 1rem 1.5rem;
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                color: white;
+                font-size: 0.9rem;
+                margin: 0;
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+
+                i {
+                    font-size: 1.2rem;
+                }
+            }
+        }
+    }
+
     // User Question Bubble
     .user-question-bubble {
         display: flex;
@@ -653,6 +690,7 @@
         opacity: 0;
         transform: translateY(40px) scale(0.98);
     }
+
     to {
         opacity: 1;
         transform: translateY(0) scale(1);
@@ -660,9 +698,12 @@
 }
 
 @keyframes pulse {
-    0%, 100% {
+
+    0%,
+    100% {
         opacity: 0.6;
     }
+
     50% {
         opacity: 1;
     }
@@ -672,6 +713,7 @@
     0% {
         transform: rotate(0deg);
     }
+
     100% {
         transform: rotate(360deg);
     }
@@ -682,6 +724,7 @@
         opacity: 0;
         transform: translateX(-50%) translateY(20px);
     }
+
     to {
         opacity: 1;
         transform: translateX(-50%) translateY(0);
@@ -701,7 +744,7 @@
 
         .chunk-card {
             padding: 1rem;
-            
+
             .text-content p {
                 font-size: 1.2rem;
             }

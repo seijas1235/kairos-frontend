@@ -46,7 +46,7 @@ export class CameraService {
         isActive: false
       });
 
-      console.log('✅ Permiso de cámara concedido');
+      console.log('✅ Camera permission granted');
       return true;
 
     } catch (error: any) {
@@ -97,7 +97,7 @@ export class CameraService {
       isActive: true
     });
 
-    console.log('✅ Cámara iniciada correctamente');
+    console.log('✅ Camera started successfully');
   }
 
   // Stop camera
