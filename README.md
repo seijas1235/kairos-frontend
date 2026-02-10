@@ -4,14 +4,14 @@
 
 >  **Backend Repository:** [kairos-backend](https://github.com/seijas1235/kairos-backend)
 
-KAIROS is an intelligent learning platform that adapts educational content in real-time based on student emotions and engagement levels, powered by Gemini AI.
+KAIROS is an intelligent learning platform that adapts educational content in real-time based on learning behavior analysis, powered by Gemini 3.
 
 ---
 
 ## Features
 
 ### Core Functionality
-- **Real-Time Emotion Detection** - Webcam-based facial emotion analysis
+- **Real-time visual signal analysis** - Incurs learning-related states such as confusion or disengagement
 - **Adaptive Content Delivery** - Dynamic content adjustment based on student state
 - **Interactive Learning Sessions** - Multimodal content (text, images, videos)
 - **Learning Path Visualization** - Progress tracking and topic navigation
@@ -20,7 +20,7 @@ KAIROS is an intelligent learning platform that adapts educational content in re
 ### UI/UX
 - **Modern Design** - Clean, professional interface with KAIROS branding
 - **Responsive Layout** - Works on desktop and tablet devices
-- **Emotion Indicator** - Real-time visual feedback of student state
+- **Visual Feedback System** - Real-time indicator of inferred student state
 - **Dark Mode Support** - Comfortable viewing in any environment
 - **Accessibility** - WCAG compliant design patterns
 
@@ -178,19 +178,17 @@ const ws = new WebSocket('ws://localhost:8000/ws/session/');
 
 ### Interactive Learning Experience
 
-Once your lesson starts, KAIROS adapts in real-time based on your emotions:
+Once your lesson starts, KAIROS adapts in real-time based on learning behavior analysis:
 
-#### Get Confused?
-- If you frown or look confused, KAIROS detects it via webcam
-- The system automatically **simplifies the explanation**
-- Content adapts with visual aids, analogies, or videos
-- Emotion indicator turns **yellow** to show confusion detected
+#### Engagement Analysis
+- If the system detects signs of confusion, it automatically simplifies the explanation.
+- Content adapts with visual aids, analogies, or videos to support understanding.
+- The indicator provides visual feedback when adaptation occurs.
 
-#### Stay Engaged?
-- If you smile or nod, the system recognizes comprehension
-- KAIROS **increases the depth** of content
-- More advanced concepts are introduced
-- Emotion indicator turns **green** to show engagement
+#### Comprehension Tracking
+- When engagement is high, the system continues with the planned learning depth.
+- KAIROS optimizes the content flow based on steady comprehension.
+- More advanced concepts are introduced as the student progresses.
 
 ### Example: Learning About Black Holes
 
@@ -204,9 +202,9 @@ Once your lesson starts, KAIROS adapts in real-time based on your emotions:
 5. Lesson continues with more advanced topics
 
 **Real-Time Feedback:**
-- Watch the emotion indicator in the top-left corner
-- See your learning path progress
-- Content adjusts automatically based on your facial expressions
+- Monitor the visual indicator for real-time status updates
+- Track your learning path progress in the dashboard
+- Content adjusts automatically based on inferred cognitive states
 
 ---
 
@@ -215,9 +213,9 @@ Once your lesson starts, KAIROS adapts in real-time based on your emotions:
 KAIROS supports multiple languages out of the box:
 
 ### Available Languages
-- 🇬🇧 **English** (default)
-- 🇪🇸 **Spanish** (Español)
-- 🇧🇷 **Portuguese** (Português)
+- **English** (default)
+- **Spanish** (Español)
+- **Portuguese** (Português)
 
 ### Switching Languages
 Users can change language via the navbar dropdown. All UI text updates instantly.
