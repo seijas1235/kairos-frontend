@@ -37,7 +37,8 @@ KAIROS is an intelligent learning platform that adapts educational content in re
 
 1. **Clone and navigate:**
    ```bash
-   cd c:\kairos\kairos-frontend-v2
+   git clone https://github.com/seijas1235/kairos-frontend.git
+   cd kairos-frontend
    ```
 
 2. **Install dependencies:**
@@ -166,27 +167,46 @@ const ws = new WebSocket('ws://localhost:8000/ws/session/');
 
 ---
 
-## 🎬 Demo Mode
+## 🕹️ How to Use
 
-### EVENT_HORIZON Demo
+### Creating a Lesson
 
-The application includes a special demo mode showcasing all features:
+1. **Navigate to Lesson Creator** from the home page
+2. **Enter any topic** you want to learn about:
+   - Examples: "Black Holes", "Photosynthesis", "French Revolution", "Quantum Mechanics"
+3. **Click "Start Learning"**
 
-**Trigger:** Enter `EVENT HORIZON` as the lesson topic
+### Interactive Learning Experience
 
-**Demo Flow:**
-1. **Learning Path** - Astrophysics topic introduction
-2. **Dense Theory** - General Relativity concepts + space image
-3. **Emotion Detection** - Detects confusion (simulated)
-4. **Content Adaptation** - Simplified explanation + NASA video
-5. **Emotion Detection** - Detects comprehension (simulated)
-6. **Completion** - Summary and next steps
+Once your lesson starts, KAIROS adapts in real-time based on your emotions:
 
-**Timeline:**
-- 0-13s: Initial content presentation
-- 13s: Confusion detected → Indicator turns yellow
-- 23-35s: Adaptive content with video
-- 35s: Comprehension detected → Indicator turns green
+#### 😕 Get Confused?
+- If you frown or look confused, KAIROS detects it via webcam
+- The system automatically **simplifies the explanation**
+- Content adapts with visual aids, analogies, or videos
+- Emotion indicator turns **yellow** to show confusion detected
+
+#### 😊 Stay Engaged?
+- If you smile or nod, the system recognizes comprehension
+- KAIROS **increases the depth** of content
+- More advanced concepts are introduced
+- Emotion indicator turns **green** to show engagement
+
+### Example: Learning About Black Holes
+
+**Topic:** `EVENT HORIZON`
+
+**What Happens:**
+1. System presents theoretical concepts about General Relativity
+2. You look confused → KAIROS detects it
+3. Content adapts with a simple fabric analogy and NASA video
+4. You smile after understanding → System confirms comprehension
+5. Lesson continues with more advanced topics
+
+**Real-Time Feedback:**
+- Watch the emotion indicator in the top-left corner
+- See your learning path progress
+- Content adjusts automatically based on your facial expressions
 
 ---
 
